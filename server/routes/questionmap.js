@@ -2,31 +2,39 @@ const express = require("express");
 const router = express.Router();
 const fetchuser = require("../middleware/fetchuser");
 const { body, validationResult } = require("express-validator");
-const CLO = require("../models/CLO");
+const { QuestionMap } = require("../models");
 
-//Route 1: Add a new semester using POST : /api/clo/createclo : LOGIN REQUIRED
+//Route 1: Map a question using POST : /api/questionmap/mapquestion : LOGIN REQUIRED
 
 router.post(
-  "/createclo",
+  "/mapquestion",
   fetchuser,
-  [body("clo", "enter a valid Assessment type"),
-      body("plo", "enter a valid Assessment type"),
-  body("newclass", "enter a valid class")
-],
+  [
+    body("class_number"),
+    body("assessment_task"),
+    body("question_number"),
+    body("clo"),
+    body("weightage"),
+  ],
   async (req, res) => {
     try {
-      const { clo,plo,newclass } = req.body;
+      const { class_number, assessment_task, question_number, clo, weightage } =
+        req.body;
       //If there are errors, return bad request and errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
-      const newClo= new CLO({
-        clo,plo,newclass,
+      const newQuestionMap = new QuestionMap({
+        class_number,
+        assessment_task,
+        question_number,
+        clo,
+        weightage,
         user: req.user.id,
       });
-      const savedCLO= await newClo.save();
-      res.json(savedCLO);
+      const savedQuestionMap = await newQuestionMap.save();
+      res.json(savedQuestionMap);
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Some Error Occured");
