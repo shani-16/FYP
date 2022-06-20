@@ -1,30 +1,35 @@
 const express = require("express");
 const router = express.Router();
 const fetchuser = require("../middleware/fetchuser");
-
 const { body, validationResult } = require("express-validator");
-const Semester = require("../models/Semester");
+const { CLO } = require("../models");
 
-//Route 1: Add a new semester using POST : /api/semester/addsemester : LOGIN REQUIRED
+//Route 1: Add a new semester using POST : /api/clo/createclo : LOGIN REQUIRED
 
 router.post(
-  "/addsemester",
+  "/createclo",
   fetchuser,
-  [body("semester", "enter a valid semester")],
+  [
+    body("clo", "enter a valid Assessment type"),
+    body("plo", "enter a valid Assessment type"),
+    body("newclass", "enter a valid class"),
+  ],
   async (req, res) => {
     try {
-      const { semester } = req.body;
+      const { clo, plo, newclass } = req.body;
       //If there are errors, return bad request and errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
-      const newSemester = new Semester({
-        semester,
+      const newClo = new CLO({
+        clo,
+        plo,
+        newclass,
         user: req.user.id,
       });
-      const savedSemester= await newSemester.save();
-      res.json(savedSemester);
+      const savedCLO = await newClo.save();
+      res.json(savedCLO);
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Some Error Occured");

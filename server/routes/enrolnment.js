@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const fetchuser = require("../middleware/fetchuser");
-const Enrolnment = require("../models/Enrolnment");
+const { Enrolnment } = require("../models");
 const { body, validationResult } = require("express-validator");
 
 //Route 1: Get all the students using GET : /api/enrolnment/allstudents : LOGIN REQUIRED
@@ -44,7 +44,7 @@ router.post(
         cnic,
         courseCode,
         courseTitle,
-        creditHours
+        creditHours,
       } = req.body;
       //If there are errors, return bad request and errors
       const errors = validationResult(req);
@@ -82,7 +82,7 @@ router.put("/updatestudent/:id", fetchuser, async (req, res) => {
     cnic,
     courseCode,
     courseTitle,
-    creditHours
+    creditHours,
   } = req.body;
 
   try {
@@ -147,7 +147,7 @@ router.delete("/deletestudent/:id", fetchuser, async (req, res) => {
     cnic,
     courseCode,
     courseTitle,
-    creditHours
+    creditHours,
   } = req.body;
 
   try {

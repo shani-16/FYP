@@ -1,29 +1,30 @@
 const express = require("express");
 const router = express.Router();
 const fetchuser = require("../middleware/fetchuser");
-const Department = require("../models/Department");
-const { body, validationResult } = require("express-validator");
 
-//Route 1: Add a new department using POST : /api/department/newdepartment : LOGIN REQUIRED
+const { body, validationResult } = require("express-validator");
+const { Semester } = require("../models");
+
+//Route 1: Add a new semester using POST : /api/semester/addsemester : LOGIN REQUIRED
 
 router.post(
-  "/newdepartment",
+  "/addsemester",
   fetchuser,
-  [body("department", "enter a valid department").isLength({ min: 3 })],
+  [body("semester", "enter a valid semester")],
   async (req, res) => {
     try {
-      const { department } = req.body;
+      const { semester } = req.body;
       //If there are errors, return bad request and errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
-      const newdepartment = new Department({
-        department,
+      const newSemester = new Semester({
+        semester,
         user: req.user.id,
       });
-      const savedDepartment = await newdepartment.save();
-      res.json(savedDepartment);
+      const savedSemester = await newSemester.save();
+      res.json(savedSemester);
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Some Error Occured");
