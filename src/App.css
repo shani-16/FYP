@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'PT Sans', sans-serif;
+}
+/* Table CSS */
+
+/* Create a two-column layout */
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+
+/* hero section   */
+
+.hero-section {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .hero-section p {
+    font-size: 2rem;
+    text-transform: capitalize;
+  }
+  
+  .hero-section h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .hero-section h2 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-align: center;
+  }

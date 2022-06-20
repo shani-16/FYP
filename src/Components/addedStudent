@@ -1,0 +1,14 @@
+import React from 'react'
+
+const addedStudent = (props) => {
+  const  {student}=props;
+  return (
+    <div>
+      {student.session}
+      {student.RegistrationNo}
+    </div>
+  )
+}
+
+export default addedStudent
+
