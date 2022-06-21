@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
@@ -7,8 +9,7 @@ const { genSalt } = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const fetchuser = require("../middleware/fetchuser");
 const { User } = require("../models");
-
-const JWT_SECRET = "Outcomeba$ededucation";
+const JWT_SECRET = process.env.JWT_SECRET;
 //ROUTE 1: Create a user using POST "/api/auth/createuser" :Doesn't require authentication
 router.post(
   "/createuser",
