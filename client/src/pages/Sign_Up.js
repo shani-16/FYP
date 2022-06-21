@@ -26,7 +26,7 @@ const Sign_Up = (props) => {
           password,
           cpassword,
         }),
-      },
+      }
     );
     const json = await response.json();
     if (password === cpassword) {
@@ -118,7 +118,7 @@ const Sign_Up = (props) => {
             />
           </div>
           <button type="submit" class="btn btn-primary">
-          Sign Up
+            Sign Up
           </button>
         </form>
       </div>
