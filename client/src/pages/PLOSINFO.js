@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 const PLOSINFO = () => {
   return (
     <>
-    <h1 className="h1 my-2 text-center">
+      <h1 className="h1 my-2 text-center">
         Program Learning Outcomes Information of BS Computer Science
       </h1>
       <div className="container">
@@ -644,18 +644,18 @@ const PLOSINFO = () => {
               </tr>
             </tbody>
             <tfoot>
-<tr>
-            <td colSpan={2}>Total Result	</td>
-            </tr>
-<tr>
-            <td colSpan={2}>Percentage</td>
-</tr>
+              <tr>
+                <td colSpan={2}>Total Result </td>
+              </tr>
+              <tr>
+                <td colSpan={2}>Percentage</td>
+              </tr>
             </tfoot>
           </table>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default PLOSINFO;
