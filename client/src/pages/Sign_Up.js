@@ -9,9 +9,15 @@ const SignUp = (props) => {
     cpassword: "",
   });
   let navigate = useNavigate();
+
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, cpassword } = credentials;
+    console.log("credentials ==> ", credentials);
     const response = await fetch(
       "http://localhost:3001/api/auth/createuser",
 
@@ -41,9 +47,6 @@ const SignUp = (props) => {
     }
   };
 
-  const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
   return (
     <>
       <h1 className="text-center my-1">Sign Up</h1>
