@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Sign_Up = (props) => {
+const SignUp = (props) => {
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -126,4 +126,4 @@ const Sign_Up = (props) => {
   );
 };
 
-export default Sign_Up;
+export default SignUp;

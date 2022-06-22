@@ -3,7 +3,7 @@ import {
   CLOS,
   CLOSINFO,
   Courses,
-  Courses_Information,
+  coursesInformation,
   Departments,
   Enrollment,
   Home,
@@ -13,8 +13,8 @@ import {
   Questions,
   Results,
   Semesters,
-  Sign_In,
-  Sign_Up,
+  SignIn,
+  SignUp,
 } from "../pages";
 import { routeNameCONST } from "../utils/constants";
 
@@ -25,7 +25,7 @@ const RouteNames = {
   },
   courseInformation: {
     route: routeNameCONST.course_information,
-    component: <Courses_Information />,
+    component: <coursesInformation />,
   },
   closinfo: {
     route: routeNameCONST.closinfo,
@@ -78,11 +78,11 @@ const RouteNames = {
   },
   signIn: {
     route: routeNameCONST.sign_in,
-    component: <Sign_In />,
+    component: <SignIn />,
   },
   signUp: {
     route: routeNameCONST.adminSignUp,
-    component: <Sign_Up />,
+    component: <SignUp />,
   },
   newEnrollment: {
     route: routeNameCONST.enrollmentNewEnrollment,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Sign_In = () => {
+const SignIn = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -113,4 +113,4 @@ const Sign_In = () => {
     </>
   );
 };
-export default Sign_In;
+export default SignIn;

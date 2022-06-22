@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RouteNames from "./RouteNames";
-import StudentState from "../context/students/StudentState";
+
 import { Navbar } from "../pages";
 const Routing = () => {
   return (
     <>
-      <StudentState>
         <Router>
           <Navbar />
           <Routes>
@@ -110,7 +109,6 @@ const Routing = () => {
             ></Route>
           </Routes>
         </Router>
-      </StudentState>
     </>
   );
 };
