@@ -13,7 +13,7 @@ export const routeNameCONST = {
   enrollment: "/enrollment",
   results: "/results",
   sign_in: "/sign_in",
-  adminSignUp: "/admin/sign_up",
+  adminSignUp: "/sign_up",
   enrollmentNewEnrollment: "/enrollment/newEnrollment",
   semestersNewSemester: "/semesters/newSemester",
   coursesNewCourse: "/courses/newCourse",
