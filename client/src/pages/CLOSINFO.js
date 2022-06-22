@@ -988,14 +988,6 @@ const CLOSINFO = () => {
                 <td>4</td>
               </tr>
             </tbody>
-            <tfoot>
-<tr>
-            <td colSpan={2}>Attempts of each Taxonomy Level in Courses Scheme</td>
-            </tr>
-<tr>
-            <td colSpan={2}>Percentage of each Taxonomy Level Attempted</td>
-</tr>
-            </tfoot>
           </table>
         </div>
       </div>

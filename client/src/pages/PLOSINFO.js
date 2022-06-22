@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react'
+import * as Icons from "react-icons/fa"
 
 const PLOSINFO = () => {
   return (
     <>
-      <h1 className="h1 my-2 text-center">
+    <h1 className="h1 my-2 text-center">
         Program Learning Outcomes Information of BS Computer Science
       </h1>
       <div className="container">
@@ -23,15 +24,13 @@ const PLOSINFO = () => {
                 <th>Computing Professionalism and Society</th>
                 <th>Ethics</th>
                 <th>Life-long Learning</th>
-                <th>PLOs in each Course</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className='text-center'>
               <tr>
                 <td>1</td>
                 <td>Introduction to ICT</td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -46,9 +45,8 @@ const PLOSINFO = () => {
                 <td>2</td>
                 <td>Programming Fundamentals</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -66,8 +64,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -81,8 +78,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -93,8 +89,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -107,8 +102,7 @@ const PLOSINFO = () => {
                 <td>Digital Logic Design</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -121,9 +115,8 @@ const PLOSINFO = () => {
                 <td>7</td>
                 <td>Object Oriented Porgramming</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -135,6 +128,7 @@ const PLOSINFO = () => {
               <tr>
                 <td>8</td>
                 <td>Communication & Presentaions Skills</td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -143,17 +137,14 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
               </tr>
               <tr>
                 <td>9</td>
                 <td>Probability & Statistics</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -165,8 +156,7 @@ const PLOSINFO = () => {
               <tr>
                 <td>10</td>
                 <td>Introduction to Economics</td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -181,9 +171,8 @@ const PLOSINFO = () => {
                 <td>11</td>
                 <td>CO & Assembly Language</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -196,9 +185,8 @@ const PLOSINFO = () => {
                 <td>12</td>
                 <td>Data Structures & Algorithms</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -212,8 +200,7 @@ const PLOSINFO = () => {
                 <td>Discrete Structures</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -232,8 +219,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
               </tr>
@@ -241,8 +227,7 @@ const PLOSINFO = () => {
                 <td>15</td>
                 <td>Diffenrential Equation</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -257,8 +242,7 @@ const PLOSINFO = () => {
                 <td>Design & Analysis of Algorithm</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -273,8 +257,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -288,9 +271,8 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -301,8 +283,7 @@ const PLOSINFO = () => {
                 <td>19</td>
                 <td>Linear Algebra</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -316,8 +297,7 @@ const PLOSINFO = () => {
                 <td>20</td>
                 <td>Introduction to Accounting</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -334,8 +314,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -346,8 +325,7 @@ const PLOSINFO = () => {
                 <td>22</td>
                 <td>Multi-variable Calculus</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -364,8 +342,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -382,8 +359,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
               </tr>
@@ -392,8 +368,7 @@ const PLOSINFO = () => {
                 <td>Graph Theory</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -407,8 +382,7 @@ const PLOSINFO = () => {
                 <td>Artificial Intelligence</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -424,8 +398,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -436,9 +409,8 @@ const PLOSINFO = () => {
                 <td>28</td>
                 <td>Visual Programming</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -455,8 +427,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -471,8 +442,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -481,9 +451,8 @@ const PLOSINFO = () => {
                 <td>31</td>
                 <td>Numerical Computing</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -496,9 +465,8 @@ const PLOSINFO = () => {
                 <td>32</td>
                 <td>Human Computer Interaction</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -511,12 +479,11 @@ const PLOSINFO = () => {
                 <td>33</td>
                 <td>Final Year Project - I</td>
                 <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -532,8 +499,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
               </tr>
@@ -541,10 +507,9 @@ const PLOSINFO = () => {
                 <td>35</td>
                 <td>Parallel & Distriuted Computing</td>
                 <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -562,9 +527,8 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
               </tr>
               <tr>
@@ -574,8 +538,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -590,25 +553,23 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
               </tr>
               <tr>
                 <td>39</td>
                 <td>Final Year Project - II</td>
                 <td></td>
+                <td><Icons.FaCheck/></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
               </tr>
@@ -622,8 +583,7 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
                 <td></td>
               </tr>
@@ -637,25 +597,16 @@ const PLOSINFO = () => {
                 <td></td>
                 <td></td>
                 <td></td>
+                <td><Icons.FaCheck/></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><Icons.FaCheck/></td>
               </tr>
             </tbody>
-            <tfoot>
-              <tr>
-                <td colSpan={2}>Total Result </td>
-              </tr>
-              <tr>
-                <td colSpan={2}>Percentage</td>
-              </tr>
-            </tfoot>
           </table>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export default PLOSINFO;
