@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 const SignIn = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   let navigate = useNavigate();
+
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -30,11 +35,6 @@ const SignIn = () => {
       alert("Enter valid credentials");
     }
   };
-
-  const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
-
   return (
     <>
       <h1 className="h1 text-center my-1">Sign In</h1>
