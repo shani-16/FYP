@@ -2,8 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const { genSalt } = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../../models");
 const { genSecretPassword } = require("../../utils/commonFunctions");
