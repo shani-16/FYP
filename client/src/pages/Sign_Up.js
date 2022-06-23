@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { createUserAPI } from "../services/adminApi";
 const SignUp = (props) => {
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
     password: "",
-    cpassword: "",
+    confirmPassword: "",
   });
   let navigate = useNavigate();
 
@@ -16,33 +16,21 @@ const SignUp = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password, cpassword } = credentials;
-    const response = await fetch(
-      "http://localhost:5000/api/auth/createuser",
-
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          confirmPassword: cpassword,
-        }),
-      }
-    );
-    const json = await response.json();
-    if (password === cpassword) {
-      console.log(json);
-      if (json.success) {
-        //Save the auth token and redirect
-        localStorage.setItem("token", json.authtoken);
+    const { name, email, password, confirmPassword } = credentials;
+    const response = await createUserAPI({
+      name,
+      email,
+      password,
+      confirmPassword,
+    });
+    if (password === confirmPassword) {
+      if (response.success) {
+        console.log("response--- succussful ==> ", response);
+        localStorage.setItem("auth-token-obe", response.data.token);
         navigate("/sign_in");
-      }
+      } else console.log("response--- not succussful ==> ", response);
     } else {
-      alert("password doesn't match");
+      console.log("response--- password not matched ==> ", response);
     }
   };
 
@@ -105,17 +93,17 @@ const SignUp = (props) => {
           </div>
           {/* Confiirm Password */}
           <div class="mb-3">
-            <label htmlFor="cpassword" class="form-label">
+            <label htmlFor="confirmPassword" class="form-label">
               Confirm Password
             </label>
             <input
               type="password"
               class="form-control"
               placeholder="Confirm Password"
-              value={credentials.cpassword}
+              value={credentials.confirmPassword}
               onChange={onChange}
-              id="cpassword"
-              name="cpassword"
+              id="confirmPassword"
+              name="confirmPassword"
               required
             />
           </div>

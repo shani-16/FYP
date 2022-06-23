@@ -19,15 +19,15 @@ const HTTP_STATUS = {
 const successResponse = (res, statusCode, successMessage = "", token = "") =>
   res.status(statusCode).send({
     success: true,
-    status: "succesfull",
+    data: {
+      token: token ? token : "",
+    },
     message: successMessage,
-    token: token ? token : null,
   });
 
-const failedResponse = (res, statusCode, failedMessage = "") =>
-  res
-    .status(statusCode)
-    .send({ success: false, status: "failed", message: failedMessage });
+const failedResponse = (res, statusCode, failedMessage = "") => {
+  res.status(statusCode).send({ success: false, message: failedMessage });
+};
 
 module.exports = {
   genSecretPassword,
