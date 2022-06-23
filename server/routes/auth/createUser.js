@@ -8,6 +8,7 @@ const {
   genSecretPassword,
   failedResponse,
   HTTP_STATUS,
+  successResponse,
 } = require("../../utils/commonFunctions");
 const JWT_SECRET = process.env.JWT_SECRET;
 //ROUTE 1: Create a user using POST "/api/auth/createuser" :Doesn't require authentication
@@ -35,6 +36,12 @@ router.post(
         failedResponse(res, HTTP_STATUS.BAD_REQUEST, "Email already exists");
         return;
       } else {
+        console.log(
+          "password === confirmPassword ",
+          password === confirmPassword
+        );
+        console.log("password  ", password);
+        console.log(" confirmPassword ", confirmPassword);
         if (password === confirmPassword) {
           let hashPassword = await genSecretPassword(password);
           user = await User.create({
@@ -47,9 +54,21 @@ router.post(
               id: user.id,
             },
           };
-          const authtoken = jwt.sign(data, JWT_SECRET);
-          success = true;
-          res.json({ success, authtoken });
+          const authTokenOBE = jwt.sign(data, JWT_SECRET);
+          // success = true;
+          // res.json({
+          //   success,
+          //   data: {
+          //     authTokenOBE,
+          //   },
+          //   message: "User created Successfully ",
+          // });
+          successResponse(
+            res,
+            HTTP_STATUS.OK,
+            "User created Successfully",
+            authTokenOBE
+          );
         } else {
           failedResponse(
             res,
