@@ -17,9 +17,8 @@ const SignUp = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, cpassword } = credentials;
-    console.log("credentials ==> ", credentials);
     const response = await fetch(
-      "http://localhost:3001/api/auth/createuser",
+      "http://localhost:5000/api/auth/createuser",
 
       {
         method: "POST",
@@ -30,7 +29,7 @@ const SignUp = (props) => {
           name,
           email,
           password,
-          cpassword,
+          confirmPassword: cpassword,
         }),
       }
     );
