@@ -50,7 +50,7 @@ router.post(
       res.json({ success, authtoken });
     } catch (error) {
       console.error(error.message);
-      res.status(500).send("Some Error Occured");
+      res.status(500).send(`create user api error ${error.message}`);
     }
   }
 );
