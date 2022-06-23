@@ -7,6 +7,7 @@ const { User } = require("../../models");
 const { genSecretPassword } = require("../../utils/commonFunctions");
 const JWT_SECRET = process.env.JWT_SECRET;
 //ROUTE 1: Create a user using POST "/api/auth/createuser" :Doesn't require authentication
+const METHOD_NAME_FOR_LOG = "Create User API ERROR";
 router.post(
   "/",
   [
@@ -50,7 +51,7 @@ router.post(
       res.json({ success, authtoken });
     } catch (error) {
       console.error(error.message);
-      res.status(500).send("Some Error Occured");
+      res.status(500).send(`${METHOD_NAME_FOR_LOG} ${error.message}`);
     }
   }
 );

@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { User } = require("../../models");
 const JWT_SECRET = process.env.JWT_SECRET;
+const METHOD_NAME_FOR_LOG = "Login User API ERROR";
 router.post(
   "/",
   [
@@ -43,7 +44,7 @@ router.post(
       (success = true), res.json({ success, authtoken });
     } catch (error) {
       console.error(error.message);
-      res.status(500).send("Internal Server Error");
+      res.status(500).send(`${METHOD_NAME_FOR_LOG} ${error.message}`);
     }
   }
 );

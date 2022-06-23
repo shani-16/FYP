@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchuser");
+const verifyAuthToken = require("../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
 const { QuestionMap } = require("../models");
 
@@ -8,7 +8,7 @@ const { QuestionMap } = require("../models");
 
 router.post(
   "/mapquestion",
-  fetchuser,
+  verifyAuthToken,
   [
     body("class_number"),
     body("assessment_task"),

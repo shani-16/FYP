@@ -1,12 +1,12 @@
 // import React from 'react'
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchuser");
+const verifyAuthToken = require("../middleware/verifyAuthToken");
 const { Enrolnment } = require("../models");
 const { body, validationResult } = require("express-validator");
 
 //Route 1: Get all the students using GET : /api/enrolnment/allstudents : LOGIN REQUIRED
-router.get("/allstudents", fetchuser, async (req, res) => {
+router.get("/allstudents", verifyAuthToken, async (req, res) => {
   try {
     const enrolled_students = await Enrolnment.find({ user: req.user.id });
 
@@ -21,7 +21,7 @@ router.get("/allstudents", fetchuser, async (req, res) => {
 
 router.post(
   "/addstudent",
-  fetchuser,
+  verifyAuthToken,
   [
     body("session", "enter a valid Session").isNumeric(),
     body("registrationNo", "enter a valid email").isLength({ min: 1 }),
@@ -73,7 +73,7 @@ router.post(
 
 //Route 3: Update a  student using PUT : /api/enrolnment/updatestudent : LOGIN REQUIRED
 
-router.put("/updatestudent/:id", fetchuser, async (req, res) => {
+router.put("/updatestudent/:id", verifyAuthToken, async (req, res) => {
   const {
     session,
     registrationNo,
@@ -138,7 +138,7 @@ router.put("/updatestudent/:id", fetchuser, async (req, res) => {
 
 //Route 4: Delete a  student using DELETE : /api/enrolnment/deletestudent : LOGIN REQUIRED
 
-router.delete("/deletestudent/:id", fetchuser, async (req, res) => {
+router.delete("/deletestudent/:id", verifyAuthToken, async (req, res) => {
   const {
     session,
     registrationNo,

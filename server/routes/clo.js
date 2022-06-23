@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchuser");
+const verifyAuthToken = require("../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
 const { CLO } = require("../models");
 
@@ -8,7 +8,7 @@ const { CLO } = require("../models");
 
 router.post(
   "/createclo",
-  fetchuser,
+  verifyAuthToken,
   [
     body("clo", "enter a valid Assessment type"),
     body("plo", "enter a valid Assessment type"),

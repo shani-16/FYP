@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchuser");
+const verifyAuthToken = require("../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
 const { Assessment } = require("../models");
 // const Assessment = require("../models/Assessment");
@@ -8,7 +8,7 @@ const { Assessment } = require("../models");
 
 router.post(
   "/createassessment",
-  fetchuser,
+  verifyAuthToken,
   [
     body("assessment", "enter a valid Assessment type"),
     body("newclass", "enter a valid class"),
