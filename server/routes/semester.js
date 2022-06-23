@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchuser");
+const verifyAuthToken = require("../middleware/verifyAuthToken");
 
 const { body, validationResult } = require("express-validator");
 const { Semester } = require("../models");
@@ -9,7 +9,7 @@ const { Semester } = require("../models");
 
 router.post(
   "/addsemester",
-  fetchuser,
+  verifyAuthToken,
   [body("semester", "enter a valid semester")],
   async (req, res) => {
     try {

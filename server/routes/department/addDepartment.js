@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchuser");
+const verifyAuthToken = require("../../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
-const { Department } = require("../models");
+const { Department } = require("../../models");
 
 //Route 1: Add a new department using POST : /api/department/departments : LOGIN REQUIRED
-
+const METHOD_NAME_FOR_LOG = "Add Dept API ERROR";
 router.post(
-  "/departments",
-  fetchuser,
+  "/",
+  verifyAuthToken,
   [body("department", "enter a valid deparment")],
   async (req, res) => {
     try {
@@ -26,7 +26,7 @@ router.post(
       res.json(savedDepartment);
     } catch (error) {
       console.error(error.message);
-      res.status(500).send(`add department api error ${error.message}`);
+      res.status(500).send(`${METHOD_NAME_FOR_LOG} ${error.message}`);
     }
   }
 );

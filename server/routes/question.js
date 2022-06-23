@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchuser");
+const verifyAuthToken = require("../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
 const { Question } = require("../models");
 
@@ -8,7 +8,7 @@ const { Question } = require("../models");
 
 router.post(
   "/createquestion",
-  fetchuser,
+  verifyAuthToken,
   [
     body("question_number"),
     body("question_type"),

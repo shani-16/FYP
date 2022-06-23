@@ -9,7 +9,7 @@ const plo = require("./plo");
 const clo = require("./clo");
 const question = require("./question");
 const questionMap = require("./questionmap");
-const department=require("./department")
+const department = require("./department/index");
 
 app.use("/auth", auth);
 app.use("/enrolnment", enrolnment);
@@ -20,6 +20,6 @@ app.use("/plo", plo);
 app.use("/clo", clo);
 app.use("/question", question);
 app.use("/questionmap", questionMap);
-app.use("/department",department);
+app.use("/department", department);
 
 module.exports = app;

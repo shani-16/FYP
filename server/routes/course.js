@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetchuser = require("../middleware/fetchuser");
+const verifyAuthToken = require("../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
 const { Course } = require("../models");
 
@@ -8,7 +8,7 @@ const { Course } = require("../models");
 
 router.post(
   "/addcourse",
-  fetchuser,
+  verifyAuthToken,
   [
     body("courseCode", "enter a valid course code"),
     body("courseTitle", "enter valid credit title"),
