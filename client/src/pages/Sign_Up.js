@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserAPI } from "../services/adminApi";
+import WebStorage, { webStorage } from "../utils/webStorage";
 const SignUp = (props) => {
   const [credentials, setCredentials] = useState({
     name: "",
@@ -26,7 +27,7 @@ const SignUp = (props) => {
     if (password === confirmPassword) {
       if (response.success) {
         console.log("response--- succussful ==> ", response);
-        localStorage.setItem("auth-token-obe", response.data.token);
+        WebStorage.setAuthToken(response.data.token);
         navigate("/sign_in");
       } else console.log("response--- not succussful ==> ", response);
     } else {
