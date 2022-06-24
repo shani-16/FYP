@@ -23,3 +23,8 @@ export const routeNameCONST = {
   questionsNewQuestion: "/questions/newQuestion",
   qmapcloNewQMapCLO: "/qmapclo/newQMapCLO",
 };
+
+export const AUTH_TOKEN = {
+  Type: "Token",
+  Name: "auth-token-obe",
+};
