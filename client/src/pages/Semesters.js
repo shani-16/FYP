@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
 const Semesters = () => {
-  //Declaration of Semesters
+  //Declaration of Semester & Department
   const [semester, setSemester] = useState("");
-
-  //Declaration of Departments Manually
   const [department, setDepartment] = useState("");
 
   //Submit Event
@@ -55,7 +53,7 @@ const Semesters = () => {
               <td>
                 <input
                   type="text"
-                  className="form-select"
+                  className="form-control"
                   name="department"
                   id="department"
                   placeholder="Enter Department"
@@ -83,10 +81,11 @@ const Semesters = () => {
       {/* Display Semesters */}
       <div className="container">
         <h3 className="text-left my-2">Semesters List</h3>
-        {/* {.map((elem) => {
+        {/* {onSubmit.map((semester, department) => {
           return (
-            <div className="eachItem">
-              <h6>{elem}</h6>
+            <div className="conatiner">
+              <h6>{semester}</h6>
+              <h6>{department}</h6>
             </div>
           );
         })} */}
