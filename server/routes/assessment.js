@@ -4,18 +4,20 @@ const verifyAuthToken = require("../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
 const { Assessment } = require("../models");
 // const Assessment = require("../models/Assessment");
-//Route 1: Add a new semester using POST : /api/assessment/createassessment : LOGIN REQUIRED
+//Route 1: Add a new semester using POST : /api/assessment/new : LOGIN REQUIRED
 
 router.post(
-  "/createassessment",
+  "/new",
   verifyAuthToken,
   [
     body("assessment", "enter a valid Assessment type"),
-    body("newclass", "enter a valid class"),
+    body("semester", "enter a valid semester"),
   ],
   async (req, res) => {
+    console.log("req.body = ", req.body);
     try {
-      const { assessment, newclass } = req.body;
+      const { assessment, semester } = req.body;
+
       //If there are errors, return bad request and errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -23,7 +25,7 @@ router.post(
       }
       const newAssessment = new Assessment({
         assessment,
-        newclass,
+        semester,
         user: req.user.id,
       });
       const savedAssessment = await newAssessment.save();

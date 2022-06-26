@@ -2,17 +2,18 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const AssessmentSchema = new Schema({
-  user:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'user'},
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
   assessment: {
     type: String,
     required: true,
   },
-  newclass:{
+  semester: {
     type: String,
     required: true,
-  }
+  },
 });
-const Assessment=mongoose.model("assessment", AssessmentSchema);
+const Assessment = mongoose.model("assessment", AssessmentSchema);
 module.exports = Assessment;
