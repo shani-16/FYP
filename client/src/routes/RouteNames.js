@@ -15,15 +15,7 @@ import {
   Semesters,
   SignIn,
   SignUp,
-  NewSemester,
-  NewAssessment,
-  NewCourse,
-  NewPLO,
-  NewCLO,
-  NewQuestion,
-  NewQMapCLO,
   Enrollment,
-  NewEnrollment,
 } from "../pages";
 import { routeNameCONST } from "../utils/constants";
 const protectedRoutes = [
@@ -81,38 +73,6 @@ const protectedRoutes = [
     component: Results,
   },
 
-  {
-    route: routeNameCONST.enrollmentNewEnrollment,
-    component: NewEnrollment,
-  },
-  {
-    route: routeNameCONST.semestersNewSemester,
-    component: NewSemester,
-  },
-  {
-    route: routeNameCONST.coursesNewCourse,
-    component: NewCourse,
-  },
-  {
-    route: routeNameCONST.assessmentTasksNewAssessment,
-    component: NewAssessment,
-  },
-  {
-    route: routeNameCONST.plosNewPLO,
-    component: NewPLO,
-  },
-  {
-    route: routeNameCONST.closNewCLO,
-    component: NewCLO,
-  },
-  {
-    route: routeNameCONST.questionsNewQuestion,
-    component: NewQuestion,
-  },
-  {
-    route: routeNameCONST.qmapcloNewQMapCLO,
-    component: NewQMapCLO,
-  },
   {
     route: "*",
     component: <Navigate to={routeNameCONST.sign_in} />,
