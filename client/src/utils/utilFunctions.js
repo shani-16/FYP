@@ -1,24 +1,30 @@
+import WebStorage from "./webStorage";
+
+export const isTokenSaved = () => WebStorage.getAuthToken();
+
 export const parseErrors = (errObj) => {
+  console.log("errObj.response ", errObj.response);
   const {
-    response: { data, status },
-  } = errObj;
+    data: { message, success },
+    status,
+  } = errObj.response;
   try {
     if (status == 400) {
       return {
-        success: false,
-        message: data.message,
+        success,
+        message,
         statusCode: status,
       };
     }
     if (status == 500) {
       return {
-        success: false,
-        message: data.message,
+        success,
+        message,
         statusCode: status,
       };
     } else {
       return {
-        success: false,
+        success,
         message:
           "Check CREATE_API response from backend and find the status code of Error",
         statusCode: status,
@@ -26,7 +32,7 @@ export const parseErrors = (errObj) => {
     }
   } catch (error) {
     return {
-      success: false,
+      success,
       message: `Network error CREATE_API  ${errObj}`,
       statusCode: status,
     };

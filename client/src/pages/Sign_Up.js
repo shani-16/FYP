@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserAPI } from "../services/adminApi";
-import WebStorage, { webStorage } from "../utils/webStorage";
-const SignUp = (props) => {
+import WebStorage from "../utils/webStorage";
+import { useDispatch } from "react-redux";
+import { authReducer } from "../redux/reducers";
+const SignUp = () => {
+  const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -10,7 +13,6 @@ const SignUp = (props) => {
     confirmPassword: "",
   });
   let navigate = useNavigate();
-
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -24,14 +26,15 @@ const SignUp = (props) => {
       password,
       confirmPassword,
     });
-    if (password === confirmPassword) {
-      if (response.success) {
-        console.log("response--- succussful ==> ", response);
-        WebStorage.setAuthToken(response.data.token);
+    const { data } = response;
+
+    if (data?.success) {
+      if (password === confirmPassword) {
+        dispatch(authReducer.actions.addToken(WebStorage.getAuthToken()));
         navigate("/sign_in");
-      } else console.log("response--- not succussful ==> ", response);
+      } else console.log("response---password not matched ==> ", response);
     } else {
-      console.log("response--- password not matched ==> ", response);
+      console.log("response--- not succussful ==> ", response);
     }
   };
 

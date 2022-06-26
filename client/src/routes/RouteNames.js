@@ -1,11 +1,11 @@
+import { Navigate } from "react-router-dom";
 import {
   AssessmentTasks,
   CLOS,
   CLOSINFO,
   Courses,
-  coursesInformation,
+  CoursesInformation,
   Departments,
-  Enrollment,
   Home,
   PLOS,
   PLOSINFO,
@@ -15,107 +15,129 @@ import {
   Semesters,
   SignIn,
   SignUp,
+  NewSemester,
+  NewAssessment,
+  NewCourse,
+  NewPLO,
+  NewCLO,
+  NewQuestion,
+  NewQMapCLO,
+  Enrollment,
+  NewEnrollment,
 } from "../pages";
 import { routeNameCONST } from "../utils/constants";
-
-const RouteNames = {
-  Default: {
-    route: "/",
-    component: <Home />,
-  },
-  courseInformation: {
+const protectedRoutes = [
+  {
     route: routeNameCONST.course_information,
-    component: <coursesInformation />,
+    component: CoursesInformation,
   },
-  closinfo: {
+  {
     route: routeNameCONST.closinfo,
-    component: <CLOSINFO />,
+    component: CLOSINFO,
   },
-  plosInfo: {
+  {
     route: routeNameCONST.plosinfo,
-    component: <PLOSINFO />,
+    component: PLOSINFO,
   },
-  departments: {
+  {
     route: routeNameCONST.departments,
-    component: <Departments />,
+    component: Departments,
   },
 
-  semesters: {
+  {
     route: routeNameCONST.semesters,
-    component: <Semesters />,
+    component: Semesters,
   },
-  courses: {
+  {
     route: routeNameCONST.courses,
-    component: <Courses />,
+    component: Courses,
   },
-  assessmentTasks: {
+  {
     route: routeNameCONST.assessment_tasks,
-    component: <AssessmentTasks />,
+    component: AssessmentTasks,
   },
-  plos: {
+  {
     route: routeNameCONST.plos,
-    component: <PLOS />,
+    component: PLOS,
   },
-  clos: {
+  {
     route: routeNameCONST.clos,
-    component: <CLOS />,
+    component: CLOS,
   },
-  questions: {
+  {
     route: routeNameCONST.questions,
-    component: <Questions />,
+    component: Questions,
   },
-  qmapclo: {
+  {
     route: routeNameCONST.qmapclo,
-    component: <QuestionMapCLO />,
+    component: QuestionMapCLO,
   },
-  enrollment: {
+  {
     route: routeNameCONST.enrollment,
-    component: <Enrollment />,
+    component: Enrollment,
   },
-  results: {
+  {
     route: routeNameCONST.results,
-    component: <Results />,
+    component: Results,
   },
-  signIn: {
-    route: routeNameCONST.sign_in,
-    component: <SignIn />,
-  },
-  signUp: {
-    route: routeNameCONST.adminSignUp,
-    component: <SignUp />,
-  },
-  newEnrollment: {
-    route: routeNameCONST.enrollmentNewEnrollment,
-    component: <newEnrollment />,
-  },
-  newSemester: {
-    route: routeNameCONST.semestersNewSemester,
-    component: <newSemester />,
-  },
-  newCourse: {
-    route: routeNameCONST.coursesNewCourse,
-    component: <newCourse />,
-  },
-  newAssessment: {
-    route: routeNameCONST.assessmentTasksNewAssessment,
-    component: <newAssessment />,
-  },
-  newPLO: {
-    route: routeNameCONST.plosNewPLO,
-    component: <newPLO />,
-  },
-  newCLO: {
-    route: routeNameCONST.closNewCLO,
-    component: <newCLO />,
-  },
-  newQuestion: {
-    route: routeNameCONST.questionsNewQuestion,
-    component: <newQuestion />,
-  },
-  newQMapCLO: {
-    route: routeNameCONST.qmapcloNewQMapCLO,
-    component: <newQMapCLO />,
-  },
-};
 
-export default RouteNames;
+  {
+    route: routeNameCONST.enrollmentNewEnrollment,
+    component: NewEnrollment,
+  },
+  {
+    route: routeNameCONST.semestersNewSemester,
+    component: NewSemester,
+  },
+  {
+    route: routeNameCONST.coursesNewCourse,
+    component: NewCourse,
+  },
+  {
+    route: routeNameCONST.assessmentTasksNewAssessment,
+    component: NewAssessment,
+  },
+  {
+    route: routeNameCONST.plosNewPLO,
+    component: NewPLO,
+  },
+  {
+    route: routeNameCONST.closNewCLO,
+    component: NewCLO,
+  },
+  {
+    route: routeNameCONST.questionsNewQuestion,
+    component: NewQuestion,
+  },
+  {
+    route: routeNameCONST.qmapcloNewQMapCLO,
+    component: NewQMapCLO,
+  },
+  {
+    route: "*",
+    component: <Navigate to={routeNameCONST.sign_in} />,
+  },
+];
+const publicRoutes = [
+  {
+    route: routeNameCONST.default,
+    component: Home,
+  },
+  {
+    route: routeNameCONST.sign_in,
+    component: SignIn,
+  },
+  {
+    route: routeNameCONST.adminSignUp,
+    component: SignUp,
+  },
+  {
+    route: "*",
+    component: <Navigate to={routeNameCONST.sign_in} />,
+  },
+];
+const RouteName = {
+  publicRoutes,
+  protectedRoutes,
+};
+export default RouteName;

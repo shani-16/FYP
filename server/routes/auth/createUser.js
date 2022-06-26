@@ -23,7 +23,6 @@ router.post(
     }),
   ],
   async (req, res) => {
-    let success = false;
     const { name, email, password, confirmPassword } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -36,12 +35,6 @@ router.post(
         failedResponse(res, HTTP_STATUS.BAD_REQUEST, "Email already exists");
         return;
       } else {
-        console.log(
-          "password === confirmPassword ",
-          password === confirmPassword
-        );
-        console.log("password  ", password);
-        console.log(" confirmPassword ", confirmPassword);
         if (password === confirmPassword) {
           let hashPassword = await genSecretPassword(password);
           user = await User.create({
@@ -54,21 +47,15 @@ router.post(
               id: user.id,
             },
           };
-          const authTokenOBE = jwt.sign(data, JWT_SECRET);
-          // success = true;
-          // res.json({
-          //   success,
-          //   data: {
-          //     authTokenOBE,
-          //   },
-          //   message: "User created Successfully ",
-          // });
-          successResponse(
-            res,
-            HTTP_STATUS.OK,
-            "User created Successfully",
-            authTokenOBE
-          );
+          const token = jwt.sign(data, JWT_SECRET, {
+            expiresIn: "5d",
+          });
+
+          res.status(HTTP_STATUS.OK).send({
+            success: true,
+            token,
+            message: "User created Successfully",
+          });
         } else {
           failedResponse(
             res,
