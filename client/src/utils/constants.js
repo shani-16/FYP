@@ -1,4 +1,5 @@
 export const routeNameCONST = {
+  default: "/",
   course_information: "/course_information",
   closinfo: "/closinfo",
   plosinfo: "/plosinfo",

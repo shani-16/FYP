@@ -4,8 +4,11 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const verifyAuthToken = async (req, res, next) => {
   //Get user from jwt token and add id to request
   const METHOD_NAME_FOR_LOGS = "Verify Auth Token ERROR";
-  const token = req.header("auth-token");
-
+  const { authorization } = req.headers;
+  let token = authorization.startsWith("Bearer")
+    ? authorization.split(" ")[1]
+    : "";
+  console.log("token---- ", token);
   try {
     if (!token) {
       return res.status(400).send({ error: "Please provide token" });

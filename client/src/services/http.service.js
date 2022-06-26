@@ -1,18 +1,7 @@
-import axios from "axios";
-import { parseErrors } from "../utils/utilFunctions";
-
-// /api/auth/createuser
+import { axiosInstance } from "../helper/axiosInstance";
 export const create = async (url, data) => {
-  console.log("URL data = ", data);
-  try {
-    let res = null;
-    res = await axios.post(`${url}`, data);
-    return {
-      success: res.data.success,
-      data: res.data.data,
-      message: res.data.message,
-    };
-  } catch (error) {
-    return parseErrors(error);
-  }
+  let res = null;
+  res = await axiosInstance.post(`${url}`, data);
+  console.log("API AxiosInstance RES ", res);
+  return res;
 };

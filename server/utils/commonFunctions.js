@@ -16,17 +16,15 @@ const HTTP_STATUS = {
   INTERNAL_SERVER_ERROR: 500,
 };
 
-const successResponse = (res, statusCode, successMessage = "", token = "") =>
+const successResponse = (res, statusCode, message = "", data = "") =>
   res.status(statusCode).send({
     success: true,
-    data: {
-      token: token ? token : "",
-    },
-    message: successMessage,
+    data,
+    message,
   });
 
-const failedResponse = (res, statusCode, failedMessage = "") => {
-  res.status(statusCode).send({ success: false, message: failedMessage });
+const failedResponse = (res, statusCode, message = "") => {
+  res.status(statusCode).send({ success: false, message, data: "" });
 };
 
 module.exports = {

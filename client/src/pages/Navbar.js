@@ -6,9 +6,9 @@ const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             Outcome Based Education
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -119,11 +119,6 @@ const Navbar = () => {
                     </Link>
                   </li>
                 </ul>
-              </li>
-              <li>
-                <Link className="nav-link" to="/about">
-                  About Us
-                </Link>
               </li>
             </ul>
             <form className="d-flex mx-2">
