@@ -1,31 +1,27 @@
 import React, { useState } from "react";
 
 const Departments = () => {
-
-  const [inputDepartment, setInputDepartment] = useState('');
+  const [inputDepartment, setInputDepartment] = useState("");
   const [addDepartments, setAddDepartments] = useState([]);
-  
+
   //Input Event
   const InputEvent = (event) => {
-    setInputDepartment(event.target.value)
-  }
+    setInputDepartment(event.target.value);
+  };
   //Submit Event
-  const onSubmit = (event) =>{
-    if(!inputDepartment){
-
-    }
-    else {
+  const onSubmit = (event) => {
+    if (!inputDepartment) {
+      console.log("Add Department");
+    } else {
       setAddDepartments([...addDepartments, inputDepartment]); //Add new Department
-      setInputDepartment('');
+      setInputDepartment("");
     }
-  }
-  
-  //Post Data    
-  const handleSubmit = async (e) => {
-    
   };
 
+  //Post Data
+  const handleSubmit = async (e) => {};
 
+  console.log("inputDepartment", inputDepartment);
 
   return (
     <>
@@ -43,7 +39,8 @@ const Departments = () => {
                 id="department"
                 placeholder="Enter Department Name"
                 value={inputDepartment}
-                required onChange={InputEvent}
+                required
+                onChange={InputEvent}
               />
             </div>
             <button
@@ -58,18 +55,15 @@ const Departments = () => {
         </div>
       </div>
       <div className="container">
-      <h3 className="text-left my-2">Departments List</h3>
-      {
-        addDepartments.map((elem, ind) => {
+        <h3 className="text-left my-2">Departments List</h3>
+        {addDepartments.map((elem, ind) => {
           return (
             <div className="eachItem">
-            <h6>{elem}</h6>  
+              <h6>{elem}</h6>
             </div>
-          )
-        })
-      }
+          );
+        })}
       </div>
-      
     </>
   );
 };
