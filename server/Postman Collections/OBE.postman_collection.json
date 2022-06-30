@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "ad9b6d32-0b1a-4c5f-a8fc-d58e0f784183",
+		"name": "OBE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21575606"
+	},
+	"item": [
+		{
+			"name": "Add user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"saqib\",\r\n    \"email\": \"saqib@gmail.com\",\r\n    \"password\": \"1111111\",\r\n\"confirmPassword\": \"1111111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/createuser",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"createuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add department",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dept\":\"EE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/department/add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"department",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Assessment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"assessment\":\"mid\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/assessment/add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"assessment",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Semester",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"semester\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/semester/add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"semester",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/getuser",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"getuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add CLO",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/clo/add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"clo",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Plo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"plo\":\"P1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/plo/add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"plo",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Departments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/department/getall",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"department",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Department",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/department/delete/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"department",
+						"delete",
+						":id"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "62be1227f3a7fde82bb014d9"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
