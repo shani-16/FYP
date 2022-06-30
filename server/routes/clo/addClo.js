@@ -1,32 +1,24 @@
 const express = require("express");
 const router = express.Router();
-var mongoose = require("mongoose");
 const verifyAuthToken = require("../../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
-const { Department, User } = require("../../models");
+const { CLO, User } = require("../../models");
 const {
   failedResponse,
   HTTP_STATUS,
   successResponse,
 } = require("../../utils/commonFunctions");
 
-//Route 1: Add a new department using POST : /api/department/departments : LOGIN REQUIRED
-const METHOD_NAME_FOR_LOG = "Add Dept API ERROR";
+//Route 1: Add a new clo using POST : /api/clo/add : LOGIN REQUIRED
+const METHOD_NAME_FOR_LOG = "Add CLO API ERROR";
 router.post(
   "/",
   verifyAuthToken,
-  [body("department", "enter a valid deparment")],
+  [body("clo", "enter a valid clo")],
   async (req, res) => {
     let userID = req.user.id;
-
-    console.log("header user id : ", userID);
-    const { dept } = req.body;
-    let userRegistered = await User.findOne({
-      _id: mongoose.Types.ObjectId(userID),
-    });
-
-    console.log("mongo user :  ", userRegistered);
-
+    const { clo } = req.body;
+    let userRegistered = await User.findOne({ userID });
     try {
       if (!userRegistered) {
         failedResponse(
@@ -35,31 +27,28 @@ router.post(
           `Given userID = ${userID} is not registered `
         );
       } else {
-        let departmentObj = await Department.findOne({
-          user: mongoose.Types.ObjectId(userID),
-        });
-        console.log("mongo department obj :  ", departmentObj);
-        if (departmentObj?.dept == dept) {
+        let cloObj = await CLO.findOne({ clo });
+        if (cloObj?.clo == clo) {
           failedResponse(
             res,
             HTTP_STATUS.BAD_REQUEST,
-            ` ${dept} department is already registered By ${userRegistered?.email}`
+            ` ${clo} clo is already registered By ${userRegistered?.email}`
           );
         } else {
           const errors = validationResult(req);
           if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
           }
-          const newDepartment = new Department({
-            dept,
-            user: req.user.id,
+          const newCLO = new CLO({
+            clo,
+            user: userID,
           });
-          const savedDepartment = await newDepartment.save();
+          const savedCLO = await newCLO.save();
           successResponse(
             res,
             HTTP_STATUS.OK,
-            `Department Added Succesfully By ${userRegistered?.email}`,
-            savedDepartment
+            `CLO Added Succesfully By ${userRegistered?.email}`,
+            savedCLO
           );
         }
       }

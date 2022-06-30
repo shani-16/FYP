@@ -3,29 +3,28 @@ const router = express.Router();
 var mongoose = require("mongoose");
 const verifyAuthToken = require("../../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
-const { Department, User } = require("../../models");
+const { Semester, User } = require("../../models");
 const {
   failedResponse,
   HTTP_STATUS,
   successResponse,
 } = require("../../utils/commonFunctions");
 
-//Route 1: Add a new department using POST : /api/department/departments : LOGIN REQUIRED
-const METHOD_NAME_FOR_LOG = "Add Dept API ERROR";
+//Route 1: Add a new semester using POST : /api/semester/add : LOGIN REQUIRED
+const METHOD_NAME_FOR_LOG = "Add Semester API ERROR";
 router.post(
   "/",
   verifyAuthToken,
-  [body("department", "enter a valid deparment")],
+  [body("semester", "enter a valid semester")],
   async (req, res) => {
     let userID = req.user.id;
-
-    console.log("header user id : ", userID);
-    const { dept } = req.body;
+    console.log("userID ", userID);
+    const { semester } = req.body;
     let userRegistered = await User.findOne({
       _id: mongoose.Types.ObjectId(userID),
     });
 
-    console.log("mongo user :  ", userRegistered);
+    console.log("user id ", userRegistered);
 
     try {
       if (!userRegistered) {
@@ -35,31 +34,30 @@ router.post(
           `Given userID = ${userID} is not registered `
         );
       } else {
-        let departmentObj = await Department.findOne({
+        let semesterObj = await Semester.findOne({
           user: mongoose.Types.ObjectId(userID),
         });
-        console.log("mongo department obj :  ", departmentObj);
-        if (departmentObj?.dept == dept) {
+        if (semesterObj?.semester == semester) {
           failedResponse(
             res,
             HTTP_STATUS.BAD_REQUEST,
-            ` ${dept} department is already registered By ${userRegistered?.email}`
+            ` ${semester} semester is already registered By ${userRegistered?.email}`
           );
         } else {
           const errors = validationResult(req);
           if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
           }
-          const newDepartment = new Department({
-            dept,
-            user: req.user.id,
+          const newSemester = new Semester({
+            semester,
+            user: userID,
           });
-          const savedDepartment = await newDepartment.save();
+          const savedSemester = await newSemester.save();
           successResponse(
             res,
             HTTP_STATUS.OK,
-            `Department Added Succesfully By ${userRegistered?.email}`,
-            savedDepartment
+            `Semester Added Succesfully By ${userRegistered?.email}`,
+            savedSemester
           );
         }
       }

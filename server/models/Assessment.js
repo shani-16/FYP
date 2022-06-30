@@ -10,10 +10,6 @@ const AssessmentSchema = new Schema({
     type: String,
     required: true,
   },
-  semester: {
-    type: String,
-    required: true,
-  },
 });
 const Assessment = mongoose.model("assessment", AssessmentSchema);
 module.exports = Assessment;
