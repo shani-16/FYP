@@ -4,31 +4,16 @@ const Departments = () => {
   const [inputDepartment, setInputDepartment] = useState("");
   const [addDepartments, setAddDepartments] = useState([]);
 
-  //Input Event
-  const InputEvent = (event) => {
-    setInputDepartment(event.target.value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setInputDepartment("");
   };
-  //Submit Event
-  const onSubmit = (event) => {
-    if (!inputDepartment) {
-      console.log("Add Department");
-    } else {
-      setAddDepartments([...addDepartments, inputDepartment]); //Add new Department
-      setInputDepartment("");
-    }
-  };
-
-  //Post Data
-  const handleSubmit = async (e) => {};
-
-  console.log("inputDepartment", inputDepartment);
-
   return (
     <>
       <div className="container">
         <h3 className="text-left my-2">Add a New Department</h3>
         <div className="container bg-dark ">
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="mb-2">
               <label htmlFor="department" className="form-label">
                 Department Title
@@ -40,14 +25,13 @@ const Departments = () => {
                 placeholder="Enter Department Name"
                 value={inputDepartment}
                 required
-                onChange={InputEvent}
+                onChange={(e) => setInputDepartment(e.target.value)}
               />
             </div>
             <button
-              type="submit"
               value="Submit"
               className="btn btn-primary mb-4"
-              onClick={onSubmit}
+              onClick={handleSubmit}
             >
               Submit
             </button>
@@ -56,10 +40,10 @@ const Departments = () => {
       </div>
       <div className="container">
         <h3 className="text-left my-2">Departments List</h3>
-        {addDepartments.map((elem, ind) => {
+        {addDepartments.map((value, index) => {
           return (
             <div className="eachItem">
-              <h6>{elem}</h6>
+              <h6>{value}</h6>
             </div>
           );
         })}
