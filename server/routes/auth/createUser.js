@@ -50,10 +50,11 @@ router.post(
           const token = jwt.sign(data, JWT_SECRET, {
             expiresIn: "5d",
           });
-
+          console.log("Token ", token);
           res.status(HTTP_STATUS.OK).send({
             success: true,
             token,
+
             message: "User created Successfully",
           });
         } else {
