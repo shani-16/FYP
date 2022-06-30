@@ -1,38 +1,19 @@
 import React, { useState } from "react";
 
 const Departments = () => {
-
-  const [inputDepartment, setInputDepartment] = useState('');
+  const [inputDepartment, setInputDepartment] = useState("");
   const [addDepartments, setAddDepartments] = useState([]);
-  
-  //Input Event
-  const InputEvent = (event) => {
-    setInputDepartment(event.target.value)
-  }
-  //Submit Event
-  const onSubmit = (event) =>{
-    if(!inputDepartment){
 
-    }
-    else {
-      setAddDepartments([...addDepartments, inputDepartment]); //Add new Department
-      setInputDepartment('');
-    }
-  }
-  
-  //Post Data    
-  const handleSubmit = async (e) => {
-    
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setInputDepartment("");
   };
-
-
-
   return (
     <>
       <div className="container">
         <h3 className="text-left my-2">Add a New Department</h3>
         <div className="container bg-dark ">
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="mb-2">
               <label htmlFor="department" className="form-label">
                 Department Title
@@ -43,14 +24,14 @@ const Departments = () => {
                 id="department"
                 placeholder="Enter Department Name"
                 value={inputDepartment}
-                required onChange={InputEvent}
+                required
+                onChange={(e) => setInputDepartment(e.target.value)}
               />
             </div>
             <button
-              type="submit"
               value="Submit"
               className="btn btn-primary mb-4"
-              onClick={onSubmit}
+              onClick={handleSubmit}
             >
               Submit
             </button>
@@ -58,18 +39,15 @@ const Departments = () => {
         </div>
       </div>
       <div className="container">
-      <h3 className="text-left my-2">Departments List</h3>
-      {
-        addDepartments.map((elem, ind) => {
+        <h3 className="text-left my-2">Departments List</h3>
+        {addDepartments.map((value, index) => {
           return (
             <div className="eachItem">
-            <h6>{elem}</h6>  
+              <h6>{value}</h6>
             </div>
-          )
-        })
-      }
+          );
+        })}
       </div>
-      
     </>
   );
 };
