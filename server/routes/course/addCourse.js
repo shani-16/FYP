@@ -3,28 +3,37 @@ const router = express.Router();
 var mongoose = require("mongoose");
 const verifyAuthToken = require("../../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
-const { Semester, User } = require("../../models");
+const { Department, User, Course } = require("../../models");
 const {
   failedResponse,
   HTTP_STATUS,
   successResponse,
 } = require("../../utils/commonFunctions");
 
-//Route 1: Add a new semester using POST : /api/semester/add : LOGIN REQUIRED
-const METHOD_NAME_FOR_LOG = "Add Semester API ERROR";
+//Route 1: Add a new course using POST : /api/course/add : LOGIN REQUIRED
+const METHOD_NAME_FOR_LOG = "Add Course API ERROR";
 router.post(
   "/",
   verifyAuthToken,
-  [body("semester", "enter a valid semester")],
+  [
+    body("courseCode", "enter a valid course code"),
+    body("courseTitle", "enter valid credit title"),
+    body("creditHours", "enter valid credit hours"),
+    body("semester", "enter valid semester"),
+    body("department", "enter valid credit hours"),
+  ],
   async (req, res) => {
     let userID = req.user.id;
-    console.log("userID ", userID);
-    const { semester } = req.body;
+
+    console.log("header user id : ", userID);
+    const { courseCode, courseTitle, creditHours, semester, department } =
+      req.body;
     let userRegistered = await User.findOne({
       _id: mongoose.Types.ObjectId(userID),
     });
 
-    console.log("user id ", userRegistered);
+    console.log("mongo user :  ", userRegistered);
+    console.log("course request body:  ", req.body);
 
     try {
       if (!userRegistered) {
@@ -34,31 +43,39 @@ router.post(
           `Given userID = ${userID} is not registered `
         );
       } else {
-        let semesterObj = await Semester.findOne({
+        let courseObj = await Course.findOne({
           user: mongoose.Types.ObjectId(userID),
         });
-        if (semesterObj?.semester == semester) {
+        console.log("mongo course obj :  ", courseObj);
+        if (
+          courseObj?.courseCode == courseCode ||
+          courseObj?.department == department ||
+          courseObj?.courseTitle == courseTitle
+        ) {
           failedResponse(
             res,
             HTTP_STATUS.BAD_REQUEST,
-            ` ${semester} semester is already registered By ${userRegistered?.email}`
+            ` ${courseCode} course is already registered By ${userRegistered?.email}`
           );
         } else {
           const errors = validationResult(req);
           if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
           }
-          const newSemester = new Semester({
+          const newCourse = new Course({
+            courseCode,
+            courseTitle,
+            creditHours,
             semester,
-            user: userID,
+            department,
+            user: req.user.id,
           });
-          console.log("Added Semester ", newSemester);
-          const savedSemester = await newSemester.save();
+          const savedCourse = await newCourse.save();
           successResponse(
             res,
             HTTP_STATUS.OK,
-            `Semester Added Succesfully By ${userRegistered?.email}`,
-            savedSemester
+            `Course Added Succesfully By ${userRegistered?.email}`,
+            savedCourse
           );
         }
       }

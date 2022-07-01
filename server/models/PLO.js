@@ -6,6 +6,10 @@ const PLOSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
+  semester: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "semester",
+  },
   plo: {
     type: String,
   },

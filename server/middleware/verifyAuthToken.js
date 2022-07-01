@@ -15,6 +15,7 @@ const verifyAuthToken = async (req, res, next) => {
     } else {
       const data = await jwt.verify(token, JWT_SECRET);
       req.user = data.user;
+      req.semester = data.semester;
       next();
     }
   } catch (error) {

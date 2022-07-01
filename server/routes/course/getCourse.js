@@ -3,36 +3,36 @@ const express = require("express");
 var mongoose = require("mongoose");
 const router = express.Router();
 const verifyAuthToken = require("../../middleware/verifyAuthToken");
-const { User, Department } = require("../../models");
+const { User, Department, Course } = require("../../models");
 const {
   successResponse,
   failedResponse,
   HTTP_STATUS,
 } = require("../../utils/commonFunctions");
-const METHOD_NAME_FOR_LOG = "Get Dept API ERROR";
+const METHOD_NAME_FOR_LOG = "Get Course API ERROR";
 router.get("/", verifyAuthToken, async (req, res) => {
   try {
     let userID = req.user.id;
     let user = mongoose.Types.ObjectId(userID);
     console.log("header user id : ", userID);
 
-    const departmentObj = await Department.find({
+    const courseObj = await Course.find({
       user,
     });
-    console.log("departmentObj ", departmentObj);
-    if (departmentObj.length < 1) {
-      console.log("departmentObj if ", departmentObj);
+    console.log("courseObj ", courseObj);
+    if (courseObj.length < 1) {
+      console.log("courseObj if ", courseObj);
       failedResponse(
         res,
         HTTP_STATUS.BAD_REQUEST,
-        ` You don't have added any department yet `
+        ` You don't have added any course yet `
       );
     }
     successResponse(
       res,
       HTTP_STATUS.OK,
       `Department Succesfully get `,
-      departmentObj
+      courseObj
     );
   } catch (error) {
     console.error(error.message);

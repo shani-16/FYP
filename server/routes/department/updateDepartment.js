@@ -10,9 +10,15 @@ const {
   successResponse,
 } = require("../../utils/commonFunctions");
 
-const METHOD_NAME_FOR_LOG = "Delete Dept API ERROR";
-router.delete("/:id", verifyAuthToken, async (req, res) => {
+const METHOD_NAME_FOR_LOG = "Update Dept API ERROR";
+router.put("/:id", verifyAuthToken, async (req, res) => {
+  const { dept } = req.body;
+
   try {
+    const updateDepatment = {};
+    if (dept) {
+      updateDepatment.dept = dept;
+    }
     let deptID = await Department.findById(req.params.id);
     console.log("Department Id ", deptID);
     if (deptID == null) {
@@ -33,11 +39,16 @@ router.delete("/:id", verifyAuthToken, async (req, res) => {
       return null;
     }
 
-    deptID = await Department.findByIdAndDelete(req.params.id);
+    deptID = await Department.findByIdAndUpdate(
+      req.params.id,
+      { $set: updateDepatment },
+      { new: true }
+    );
+    console.log("Updated department", deptID);
     successResponse(
       res,
       HTTP_STATUS.OK,
-      ` ${deptID.dept} Department Deleted Succesfully`,
+      ` ${deptID.dept} Department Updated Succesfully`,
       deptID.dept
     );
   } catch (error) {
@@ -46,7 +57,7 @@ router.delete("/:id", verifyAuthToken, async (req, res) => {
     failedResponse(
       res,
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
-      ` METHOD_NAME_FOR_LOG `
+      ` ${METHOD_NAME_FOR_LOG} `
     );
   }
 });

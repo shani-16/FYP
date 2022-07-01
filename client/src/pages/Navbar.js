@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import WebStorage from "../utils/webStorage";
 
 const Navbar = () => {
+  var userToken = WebStorage.getAuthToken();
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -122,20 +125,32 @@ const Navbar = () => {
               </li>
             </ul>
             <form className="d-flex mx-2">
-              <Link
-                className="btn btn-outline-success mx-1"
-                type="button"
-                to="/sign_in"
-              >
-                Sign In
-              </Link>
-              <Link
-                className="btn btn-outline-success mx-1"
-                type="button"
-                to="/sign_up"
-              >
-                Sign Up
-              </Link>
+              {!userToken ? (
+                <>
+                  <Link
+                    className="btn btn-outline-success mx-1"
+                    type="button"
+                    to="/sign_in"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    className="btn btn-outline-success mx-1"
+                    type="button"
+                    to="/sign_up"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  className="btn btn-outline-success mx-1"
+                  type="button"
+                  to=""
+                >
+                  Log Out
+                </Link>
+              )}
             </form>
             <form className="d-flex" role="search">
               <input
