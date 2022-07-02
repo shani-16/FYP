@@ -20,6 +20,10 @@ import {
 import { routeNameCONST } from "../utils/constants";
 const protectedRoutes = [
   {
+    route: routeNameCONST.default,
+    component: Home,
+  },
+  {
     route: routeNameCONST.course_information,
     component: CoursesInformation,
   },
@@ -79,10 +83,6 @@ const protectedRoutes = [
   },
 ];
 const publicRoutes = [
-  {
-    route: routeNameCONST.default,
-    component: Home,
-  },
   {
     route: routeNameCONST.sign_in,
     component: SignIn,

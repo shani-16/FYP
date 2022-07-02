@@ -3,7 +3,7 @@ const router = express.Router();
 var mongoose = require("mongoose");
 const verifyAuthToken = require("../../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
-const { Semester, User } = require("../../models");
+const { Semester, User, Department } = require("../../models");
 const {
   failedResponse,
   HTTP_STATUS,
@@ -18,11 +18,17 @@ router.post(
   [body("semester", "enter a valid semester")],
   async (req, res) => {
     let userID = req.user.id;
+    // let deptID = req.department.id;
     console.log("userID ", userID);
+    // console.log("deptID ", deptID);
+
     const { semester } = req.body;
     let userRegistered = await User.findOne({
       _id: mongoose.Types.ObjectId(userID),
     });
+    // let departmentRegistered = await Department.findOne({
+    //   _id: mongoose.Types.ObjectId(deptID),
+    // });
 
     console.log("user id ", userRegistered);
 

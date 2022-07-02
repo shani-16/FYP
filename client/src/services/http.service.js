@@ -5,3 +5,9 @@ export const create = async (url, data) => {
   console.log("API AxiosInstance RES ", res);
   return res;
 };
+export const get = async (url) => {
+  let res = null;
+  res = await axiosInstance.get(`${url}`);
+  console.log("API AxiosInstance RES ", res);
+  return res;
+};

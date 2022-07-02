@@ -1,7 +1,30 @@
 import React from "react";
+<<<<<<< Updated upstream
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+=======
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import authReducer from "../redux/reducers/authReducer";
+import { routeNameCONST } from "../utils/constants";
+import WebStorage from "../utils/webStorage";
+
+const Navbar = () => {
+  const dispatch = useDispatch();
+  var userToken = WebStorage.getAuthToken();
+
+  const handleLogout = () => {
+    console.log("handleLogout ");
+    WebStorage.removeAuthToken();
+    dispatch(authReducer.actions.addToken(""));
+  };
+  console.log(
+    "useSelector token",
+    useSelector((state) => state.auth.token)
+  );
+  console.log("User Token ", userToken);
+>>>>>>> Stashed changes
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -122,6 +145,7 @@ const Navbar = () => {
               </li>
             </ul>
             <form className="d-flex mx-2">
+<<<<<<< Updated upstream
               <Link
                 className="btn btn-outline-success mx-1"
                 type="button"
@@ -136,6 +160,35 @@ const Navbar = () => {
               >
                 Sign Up
               </Link>
+=======
+              {!userToken ? (
+                <>
+                  <Link
+                    className="btn btn-outline-success mx-1"
+                    type="button"
+                    to={routeNameCONST.sign_in}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    className="btn btn-outline-success mx-1"
+                    type="button"
+                    to={routeNameCONST.adminSignUp}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  className="btn btn-outline-success mx-1"
+                  type="button"
+                  to={routeNameCONST.sign_in}
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </Link>
+              )}
+>>>>>>> Stashed changes
             </form>
             <form className="d-flex" role="search">
               <input

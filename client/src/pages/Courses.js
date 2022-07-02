@@ -1,45 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { addNewCourseAPI, getUserCoursesAPI } from "../services/adminApi";
 
 const Courses = () => {
   //States of All Inputs
   const [courseTitle, setCourseTitle] = useState("");
   const [courseCode, setCourseCode] = useState("");
-  const [courseType, setCourseType] = useState("");
   const [courseCredits, setCourseCredits] = useState("");
   const [semester, setSemester] = useState("");
   const [department, setDepartment] = useState("");
-
+  const [courseArray, setCourseArray] = useState([]);
   //Submit Event
-  const onSubmit = () => {
-    console.log("Course Title = ", courseTitle);
-    console.log("Course Code = ", courseCode);
-    console.log("Course Type = ", courseType);
-    console.log("Course Credit Hours = ", courseCredits);
-    console.log("Semester = ", semester);
-    console.log("Departmente = ", department);
-
-    if (semester === "" || department === "") {
-      console.log("Type any Name");
+  const onSubmit = async () => {
+    if (
+      semester == "" ||
+      department == "" ||
+      courseTitle == "" ||
+      courseCode == "" ||
+      courseCredits == ""
+    ) {
+      console.log("Kindly Fill fields");
     } else {
       var modal = {
         courseTitle,
         courseCode,
-        courseType,
         courseCredits,
         semester,
         department,
       };
-      console.log(modal);
-
+      console.log("modal ", modal);
+      const response = await addNewCourseAPI(modal);
+      const { data } = response;
+      console.log("data ", data);
+      console.log("response ", response);
+      if (data?.success) {
+        console.log("response succussful ==> ", data.data);
+      } else {
+        console.log("response not succussful ==> ", data.message);
+      }
+      setCourseArray(response);
       setCourseTitle("");
       setCourseCode("");
-      setCourseType("");
+
       setCourseCredits("");
       setSemester("");
       setDepartment("");
     }
   };
-
+  useEffect(() => {
+    getUserCoursesAPI()
+      .then((res) => setCourseArray(res.data.data))
+      .catch((err) => console.log("api response error", err));
+  }, [courseArray]);
   return (
     <>
       {/* Create New Course */}
@@ -53,7 +64,7 @@ const Courses = () => {
             <tr>
               <th scope="col">Course Title</th>
               <th scope="col">Course Code</th>
-              <th scope="col">Course Type</th>
+
               <th scope="col">Credit Hour(s)</th>
               <th scope="col">Semester</th>
               <th scope="col">Department</th>
@@ -83,18 +94,6 @@ const Courses = () => {
                   value={courseCode}
                   required
                   onChange={(e) => setCourseCode(e.target.value)}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="coursetype"
-                  id="coursetype"
-                  placeholder="Enter Course Type"
-                  value={courseType}
-                  required
-                  onChange={(e) => setCourseType(e.target.value)}
                 />
               </td>
               <td>
@@ -151,6 +150,32 @@ const Courses = () => {
       {/* Display Course */}
       <div className="container my-2">
         <h3 className="text-left my-2">Courses List</h3>
+        <>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Course Title</th>
+                <th scope="col">Course Code</th>
+                <th scope="col">Credit Hours</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Department</th>
+              </tr>
+            </thead>
+            <tbody>
+              {courseArray
+                ? courseArray.map((value, index) => (
+                    <tr>
+                      <td>{value.courseTitle}</td>
+                      <td>{value.courseCode}</td>
+                      <td>1</td>
+                      <td>{value.semester}</td>
+                      <td>{value.department}</td>
+                    </tr>
+                  ))
+                : null}
+            </tbody>
+          </table>
+        </>
       </div>
     </>
   );
