@@ -15,10 +15,7 @@ const verifyAuthToken = async (req, res, next) => {
     } else {
       const data = await jwt.verify(token, JWT_SECRET);
       req.user = data.user;
-<<<<<<< Updated upstream
-=======
       console.log("user data ", req.user);
->>>>>>> Stashed changes
       next();
     }
   } catch (error) {

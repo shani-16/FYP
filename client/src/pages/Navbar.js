@@ -1,9 +1,4 @@
 import React from "react";
-<<<<<<< Updated upstream
-import { Link } from "react-router-dom";
-
-const Navbar = () => {
-=======
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import authReducer from "../redux/reducers/authReducer";
@@ -24,7 +19,6 @@ const Navbar = () => {
     useSelector((state) => state.auth.token)
   );
   console.log("User Token ", userToken);
->>>>>>> Stashed changes
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -145,22 +139,6 @@ const Navbar = () => {
               </li>
             </ul>
             <form className="d-flex mx-2">
-<<<<<<< Updated upstream
-              <Link
-                className="btn btn-outline-success mx-1"
-                type="button"
-                to="/sign_in"
-              >
-                Sign In
-              </Link>
-              <Link
-                className="btn btn-outline-success mx-1"
-                type="button"
-                to="/sign_up"
-              >
-                Sign Up
-              </Link>
-=======
               {!userToken ? (
                 <>
                   <Link
@@ -188,7 +166,6 @@ const Navbar = () => {
                   Log Out
                 </Link>
               )}
->>>>>>> Stashed changes
             </form>
             <form className="d-flex" role="search">
               <input
