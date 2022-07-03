@@ -11,10 +11,6 @@ import { routeNameCONST } from "../utils/constants";
 import WebStorage from "../utils/webStorage";
 const Routing = () => {
   const { publicRoutes, protectedRoutes } = RouteNames;
-  console.log(
-    "useSelector Routing",
-    useSelector((state) => state.auth.token)
-  );
   useSelector((state) => state.auth.token);
   var userToken = WebStorage.getAuthToken();
   const HOC = (component) => {

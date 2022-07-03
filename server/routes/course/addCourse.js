@@ -3,7 +3,7 @@ const router = express.Router();
 var mongoose = require("mongoose");
 const verifyAuthToken = require("../../middleware/verifyAuthToken");
 const { body, validationResult } = require("express-validator");
-const { Department, User, Course } = require("../../models");
+const { User, Course } = require("../../models");
 const {
   failedResponse,
   HTTP_STATUS,

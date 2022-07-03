@@ -21,6 +21,7 @@ router.delete("/:id", verifyAuthToken, async (req, res) => {
         HTTP_STATUS.BAD_REQUEST,
         ` ${req.params.id} Department does not exist `
       );
+      return;
     }
 
     if (deptID?.user.toString() != req.user.id) {
@@ -29,6 +30,7 @@ router.delete("/:id", verifyAuthToken, async (req, res) => {
         HTTP_STATUS.BAD_REQUEST,
         ` ${deptID} METHOD_NAME_FOR_LOG `
       );
+      return;
     }
 
     deptID = await Department.findByIdAndDelete(req.params.id);

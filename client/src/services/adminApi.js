@@ -7,7 +7,6 @@ export const createUserAPI = async (body) => {
   return create(CREATE_USER_URL, body);
 };
 export const addNewCourseAPI = async (body) => {
-  console.log("addNewCourse", body);
   return create(ADD_NEW_COURSE, body);
 };
 export const getUserCoursesAPI = async () => {

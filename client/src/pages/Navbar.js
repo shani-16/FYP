@@ -10,15 +10,9 @@ const Navbar = () => {
   var userToken = WebStorage.getAuthToken();
 
   const handleLogout = () => {
-    console.log("handleLogout ");
     WebStorage.removeAuthToken();
     dispatch(authReducer.actions.addToken(""));
   };
-  console.log(
-    "useSelector token",
-    useSelector((state) => state.auth.token)
-  );
-  console.log("User Token ", userToken);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">

@@ -3,7 +3,6 @@ import WebStorage from "./webStorage";
 export const isTokenSaved = () => WebStorage.getAuthToken();
 
 export const parseErrors = (errObj) => {
-  console.log("errObj.response ", errObj.response);
   const {
     data: { message, success },
     status,

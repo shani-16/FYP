@@ -5,7 +5,7 @@ const Courses = () => {
   //States of All Inputs
   const [courseTitle, setCourseTitle] = useState("");
   const [courseCode, setCourseCode] = useState("");
-  const [courseCredits, setCourseCredits] = useState("");
+  const [creditHours, setCreditHours] = useState("");
   const [semester, setSemester] = useState("");
   const [department, setDepartment] = useState("");
   const [courseArray, setCourseArray] = useState([]);
@@ -16,41 +16,39 @@ const Courses = () => {
       department == "" ||
       courseTitle == "" ||
       courseCode == "" ||
-      courseCredits == ""
+      creditHours == ""
     ) {
       console.log("Kindly Fill fields");
     } else {
       var modal = {
         courseTitle,
         courseCode,
-        courseCredits,
+        creditHours,
         semester,
         department,
       };
-      console.log("modal ", modal);
       const response = await addNewCourseAPI(modal);
-      const { data } = response;
-      console.log("data ", data);
       console.log("response ", response);
+      const { data } = response;
       if (data?.success) {
-        console.log("response succussful ==> ", data.data);
+        console.log("COURSES Page succussful ==> ", data.data);
       } else {
-        console.log("response not succussful ==> ", data.message);
+        console.log("COURSES Page not succussful ==> ", data?.message);
       }
-      setCourseArray(response);
+      const getResponse = await getUserCoursesAPI();
+      setCourseArray(getResponse?.data?.data);
       setCourseTitle("");
       setCourseCode("");
-
-      setCourseCredits("");
+      setCreditHours("");
       setSemester("");
       setDepartment("");
     }
   };
   useEffect(() => {
     getUserCoursesAPI()
-      .then((res) => setCourseArray(res.data.data))
-      .catch((err) => console.log("api response error", err));
-  }, [courseArray]);
+      .then((res) => setCourseArray(res?.data?.data))
+      .catch((err) => console.log("COURSES Page api response error", err));
+  }, []);
   return (
     <>
       {/* Create New Course */}
@@ -103,9 +101,9 @@ const Courses = () => {
                   name="credithours"
                   id="credithours"
                   placeholder="Enter Credit Hours"
-                  value={courseCredits}
+                  value={creditHours}
                   required
-                  onChange={(e) => setCourseCredits(e.target.value)}
+                  onChange={(e) => setCreditHours(e.target.value)}
                 />
               </td>
               <td>
@@ -167,7 +165,7 @@ const Courses = () => {
                     <tr>
                       <td>{value.courseTitle}</td>
                       <td>{value.courseCode}</td>
-                      <td>1</td>
+                      <td>{value.creditHours}</td>
                       <td>{value.semester}</td>
                       <td>{value.department}</td>
                     </tr>

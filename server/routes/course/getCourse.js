@@ -32,7 +32,6 @@ router.get("/", verifyAuthToken, async (req, res) => {
     successResponse(res, HTTP_STATUS.OK, `Course Succesfully get `, courseObj);
   } catch (error) {
     console.error(error.message);
-    // res.status(500).send(`${METHOD_NAME_FOR_LOG} ${error.message}`);
     failedResponse(
       res,
       HTTP_STATUS.BAD_REQUEST,
