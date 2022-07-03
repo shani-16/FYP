@@ -1,7 +1,18 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import authReducer from "../redux/reducers/authReducer";
+import { routeNameCONST } from "../utils/constants";
+import WebStorage from "../utils/webStorage";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  var userToken = WebStorage.getAuthToken();
+
+  const handleLogout = () => {
+    WebStorage.removeAuthToken();
+    dispatch(authReducer.actions.addToken(""));
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -122,20 +133,33 @@ const Navbar = () => {
               </li>
             </ul>
             <form className="d-flex mx-2">
-              <Link
-                className="btn btn-outline-success mx-1"
-                type="button"
-                to="/sign_in"
-              >
-                Sign In
-              </Link>
-              <Link
-                className="btn btn-outline-success mx-1"
-                type="button"
-                to="/sign_up"
-              >
-                Sign Up
-              </Link>
+              {!userToken ? (
+                <>
+                  <Link
+                    className="btn btn-outline-success mx-1"
+                    type="button"
+                    to={routeNameCONST.sign_in}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    className="btn btn-outline-success mx-1"
+                    type="button"
+                    to={routeNameCONST.adminSignUp}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  className="btn btn-outline-success mx-1"
+                  type="button"
+                  to={routeNameCONST.sign_in}
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </Link>
+              )}
             </form>
             <form className="d-flex" role="search">
               <input

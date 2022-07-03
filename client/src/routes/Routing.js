@@ -12,16 +12,21 @@ import WebStorage from "../utils/webStorage";
 const Routing = () => {
   const { publicRoutes, protectedRoutes } = RouteNames;
   useSelector((state) => state.auth.token);
-
+  var userToken = WebStorage.getAuthToken();
   const HOC = (component) => {
-    var userToken = WebStorage.getAuthToken();
     if (userToken) {
       return component;
     } else {
       return <Navigate to={routeNameCONST.sign_in} />;
     }
   };
-
+  const checkAuth = (component) => {
+    if (!userToken) {
+      return component;
+    } else {
+      return <Navigate to={routeNameCONST.default} />;
+    }
+  };
   return (
     <>
       <Router>
@@ -30,7 +35,7 @@ const Routing = () => {
           {publicRoutes.map((value, index) => (
             <Route
               path={value.route}
-              element={<value.component />}
+              element={checkAuth(<value.component />)}
               key={index}
             />
           ))}
