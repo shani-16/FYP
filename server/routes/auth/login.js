@@ -20,12 +20,10 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    console.log("errors.array() ", errors.array());
+
     if (!errors.isEmpty()) {
       failedResponse(res, HTTP_STATUS.BAD_REQUEST, errors.array());
     }
-
-    console.log("req.body - ", req.body);
     const { email, password } = req.body;
     try {
       let user = await User.findOne({ email });
@@ -46,7 +44,12 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      successResponse(res, HTTP_STATUS.OK, "Login Successfull ", authtoken);
+      console.log("authtoken ", authtoken);
+      res.status(HTTP_STATUS.OK).send({
+        success: true,
+        token: authtoken,
+        message: "User Login Successfully",
+      });
     } catch (error) {
       console.error(error.message);
       failedResponse(
