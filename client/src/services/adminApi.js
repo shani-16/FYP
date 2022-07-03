@@ -1,10 +1,14 @@
 import { create, get } from "./http.service";
 const CREATE_USER_URL = `/api/auth/createuser`;
+const LOGIN_USER_URL = `/api/auth/login`;
 const ADD_NEW_COURSE = `/api/course/add`;
 const GET_USER_COURSE = `/api/course/get`;
 
 export const createUserAPI = async (body) => {
   return create(CREATE_USER_URL, body);
+};
+export const loginUserAPI = async (body) => {
+  return create(LOGIN_USER_URL, body);
 };
 export const addNewCourseAPI = async (body) => {
   return create(ADD_NEW_COURSE, body);
