@@ -4,34 +4,24 @@ import { createUserAPI } from "../services/adminApi";
 import WebStorage from "../utils/webStorage";
 import { useDispatch } from "react-redux";
 import { authReducer } from "../redux/reducers";
+import { routeNameCONST } from "../utils/constants";
 const SignUp = () => {
   const dispatch = useDispatch();
-  const [credentials, setCredentials] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
   let navigate = useNavigate();
-  const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password, confirmPassword } = credentials;
-    const response = await createUserAPI({
-      name,
-      email,
-      password,
-      confirmPassword,
-    });
+    var modal = { name, email, password, confirmPassword };
+    const response = await createUserAPI(modal);
     const { data } = response;
 
     if (data?.success) {
-      if (password === confirmPassword) {
+      if (modal.password === modal.confirmPassword) {
         dispatch(authReducer.actions.addToken(WebStorage.getAuthToken()));
-        navigate("/sign_in");
+        navigate(routeNameCONST.default);
       } else console.log("response---password not matched ==> ", response);
     } else {
       console.log("response--- not succussful ==> ", response);
@@ -52,8 +42,10 @@ const SignUp = () => {
               class="form-control"
               type="text"
               placeholder="Enter Username"
-              value={credentials.name}
-              onChange={onChange}
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
               id="name"
               name="name"
               required
@@ -68,8 +60,10 @@ const SignUp = () => {
               type="email"
               class="form-control"
               placeholder="Enter Email"
-              value={credentials.email}
-              onChange={onChange}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               id="email"
               name="email"
               aria-describedby="emailHelp"
@@ -88,8 +82,10 @@ const SignUp = () => {
               type="password"
               class="form-control"
               placeholder="Enter Password"
-              value={credentials.password}
-              onChange={onChange}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               id="password"
               name="password"
               required
@@ -104,14 +100,16 @@ const SignUp = () => {
               type="password"
               class="form-control"
               placeholder="Confirm Password"
-              value={credentials.confirmPassword}
-              onChange={onChange}
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
               id="confirmPassword"
               name="confirmPassword"
               required
             />
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>
             Sign Up
           </button>
         </form>
