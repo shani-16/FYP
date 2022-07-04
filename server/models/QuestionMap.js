@@ -2,29 +2,34 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const QuestionMapSchema = new Schema({
-  user:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'user'},
-  class_number: {
-    type: Number,
-    required: true,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
   },
-assessment_task:{
+  courseTitle: {
     type: String,
     required: true,
-},
-  question_number:{
+  },
+  assessmentTask: {
+    type: String,
+    required: true,
+  },
+  questionNumber: {
     type: Number,
     required: true,
   },
-  clo:{
+  clo: {
+    type: String,
+    required: true,
+  },
+  plo: {
+    type: String,
+    required: true,
+  },
+  weightage: {
     type: Number,
     required: true,
   },
-  weightage:{
-    type: Number,
-    required: true,
-  }
 });
-const QuestionMap=mongoose.model("questionmap", QuestionMapSchema);
+const QuestionMap = mongoose.model("questionmap", QuestionMapSchema);
 module.exports = QuestionMap;

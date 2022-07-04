@@ -8,7 +8,7 @@ const assessment = require("./assessment");
 const plo = require("./plo");
 const clo = require("./clo");
 const question = require("./question");
-const questionMap = require("./questionmap");
+const questionMap = require("./questionMap/index");
 const department = require("./department/index");
 
 app.use("/auth", auth);
