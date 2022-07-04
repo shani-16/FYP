@@ -6,18 +6,25 @@ const QMapCLO = () => {
   const [taskType, setTaskType] = useState("");
   const [question, setQuestion] = useState("");
   const [clo, setClo] = useState("");
+  const [plo, setPlo] = useState("");
   const [weightage, setWeightage] = useState("");
-
+  const ploArray = [
+    "Academic Education",
+    "Knowledge for Solving Computing Problems",
+    "Problem Analysis",
+    "Design/ Development of Solutions",
+    "Modern Tool Usage",
+    "Individual and Team Work",
+    "Communication",
+    "Computing Professionalism and Society",
+    "Ethics",
+    "Life-long Learning",
+  ];
   //Submit Event
   const onSubmit = () => {
-    console.log("Course Title = ", courseTitle);
-    console.log("Task Type = ", taskType);
-    console.log("Question No. = ", question);
-    console.log("CLO = ", clo);
-    console.log("Weightage = ", weightage);
-
     if (
       clo === "" ||
+      plo === "" ||
       taskType === "" ||
       courseTitle === "" ||
       question === "" ||
@@ -25,12 +32,13 @@ const QMapCLO = () => {
     ) {
       console.log("Type any Name");
     } else {
-      var modal = { clo, question, taskType, courseTitle, weightage };
+      var modal = { clo, question, taskType, courseTitle, plo, weightage };
       console.log(modal);
       setCourseTitle("");
       setTaskType("");
       setQuestion("");
       setClo("");
+      setPlo("");
       setWeightage("");
     }
   };
@@ -50,6 +58,7 @@ const QMapCLO = () => {
               <th scope="col">Assessment Task Title</th>
               <th scope="col">Question No.</th>
               <th scope="col">CLO</th>
+              <th scope="col">PLO</th>
               <th scope="col">Weightage</th>
             </tr>
           </thead>
@@ -102,6 +111,23 @@ const QMapCLO = () => {
                   required
                   onChange={(e) => setClo(e.target.value)}
                 />
+              </td>
+              <td>
+                <select
+                  type="select"
+                  className="form-control"
+                  name="plo"
+                  id="plo"
+                  value={plo}
+                  required
+                  onChange={(e) => setPlo(e.target.value)}
+                >
+                  {ploArray.map((value, index) => (
+                    <option value={value} key={index}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
               </td>
               <td>
                 <input
