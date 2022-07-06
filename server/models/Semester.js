@@ -6,12 +6,12 @@ const SemesterSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
-  department: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "department",
-  },
   semester: {
     type: Number,
+    required: true,
+  },
+  dept: {
+    type: String,
     required: true,
   },
 });

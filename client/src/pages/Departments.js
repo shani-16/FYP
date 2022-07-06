@@ -1,13 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  addNewDepartmentAPI,
+  getUserDepartmentsAPI,
+} from "../services/adminApi";
 
 const Departments = () => {
-  const [inputDepartment, setInputDepartment] = useState("");
-  const [addDepartments, setAddDepartments] = useState([]);
+  const [dept, setAddDepartments] = useState("");
+  const [departmentsArray, setDepartmentsArray] = useState([]);
 
-  const handleSubmit = (e) => {
+  //Submit Event
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setInputDepartment("");
+    if (dept == "") {
+      console.log("Kindly Fill fields");
+    } else {
+      var modal = {
+        dept,
+      };
+      const response = await addNewDepartmentAPI(modal);
+      console.log("response ", response);
+      const { data } = response;
+      if (data?.success) {
+        console.log("DEPARTMENTS Page succussful ==> ", data.data);
+        alert("Department Added Successfully");
+      } else {
+        console.log("DEPARTMENTS Page not succussful ==> ", data?.message);
+        alert("Department Already Exists");
+      }
+      const getResponse = await getUserDepartmentsAPI();
+      setDepartmentsArray(getResponse?.data?.data);
+      setAddDepartments("");
+    }
   };
+  useEffect(() => {
+    getUserDepartmentsAPI()
+      .then((res) => setDepartmentsArray(res?.data?.data))
+      .catch((err) => console.log("DEPARTMENTS Page api response error", err));
+  }, []);
   return (
     <>
       <div className="container">
@@ -21,17 +50,19 @@ const Departments = () => {
               <input
                 type="text"
                 className="form-control"
-                id="department"
-                placeholder="Enter Department Name"
-                value={inputDepartment}
+                name="dept"
+                id="dept"
+                placeholder="Enter Department"
+                value={dept}
                 required
-                onChange={(e) => setInputDepartment(e.target.value)}
+                onChange={(e) => setAddDepartments(e.target.value)}
               />
             </div>
             <button
+              type="submit"
               value="Submit"
               className="btn btn-primary mb-4"
-              onClick={handleSubmit}
+              onClick={onSubmit}
             >
               Submit
             </button>
@@ -39,14 +70,45 @@ const Departments = () => {
         </div>
       </div>
       <div className="container">
-        <h3 className="text-left my-2">Departments List</h3>
-        {addDepartments.map((value, index) => {
-          return (
-            <div className="eachItem">
-              <h6>{value}</h6>
-            </div>
-          );
-        })}
+        <table class="table ">
+          <thead>
+            <tr>
+              <th scope="col">
+                <h3>Departments</h3>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {departmentsArray
+              ? departmentsArray.map((value, index) => (
+                  <tr>
+                    <td>{value.dept.toUpperCase()}</td>
+                    <button
+                      type="submit"
+                      value="Submit"
+                      style={{
+                        backgroundColor: "#0d6efd ",
+                        marginRight: "3px",
+                      }}
+                      className="btn btn-primary mb-4"
+                      //  onClick={() => onSubmit()}
+                    >
+                      Update
+                    </button>
+                    <button
+                      type="submit"
+                      value="Submit"
+                      style={{ backgroundColor: "#0d6efd" }}
+                      className="btn btn-primary mb-4 "
+                      // onClick={() => onSubmit()}
+                    >
+                      Delete
+                    </button>
+                  </tr>
+                ))
+              : null}
+          </tbody>
+        </table>
       </div>
     </>
   );

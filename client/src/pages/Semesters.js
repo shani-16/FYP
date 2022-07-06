@@ -1,23 +1,55 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import {
+  addNewSemesterAPI,
+  getUserDepartmentsAPI,
+  getUserSemesterAPI,
+} from "../services/adminApi";
 const Semesters = () => {
   //Declaration of Semester & Department
   const [semester, setSemester] = useState("");
-  const [department, setDepartment] = useState("");
+  const [dept, setDept] = useState("");
+  const [semesterArray, setSemesterArray] = useState([]);
+  const [deptArray, setDeptArray] = useState([]);
+
+  const semesterDataArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
   //Submit Event
-  const onSubmit = () => {
-    console.log("Semester Added = ", semester);
-    console.log("Departmente Added = ", department);
-    if (semester === "" || department === "") {
-      console.log("Type any Name");
+
+  const onSubmit = async () => {
+    if (semester == "" || dept == "") {
+      console.log("Kindly Fill fields");
     } else {
-      var modal = { semester, department };
-      console.log(modal);
-      setDepartment("");
+      var modal = {
+        semester,
+        dept,
+      };
+      console.log("Semester modal", modal);
+      const response = await addNewSemesterAPI(modal);
+      console.log("response ", response);
+      const { data } = response;
+
+      if (data?.success) {
+        console.log("SEMESTER Page succussful ==> ", data.data);
+      } else {
+        console.log("SEMESTER Page not succussful ==> ", data?.message);
+      }
+      const getResponse = await getUserSemesterAPI();
+      setSemesterArray(getResponse?.data?.data);
       setSemester("");
+      const getPrevResponse = await getUserDepartmentsAPI();
+      setDeptArray(getPrevResponse?.data?.data);
+      setDept("");
     }
   };
+
+  useEffect(() => {
+    getUserDepartmentsAPI()
+      .then((res) => setDeptArray(res?.data?.data))
+      .catch((err) => console.log("Semesters Page api response error", err));
+    getUserDepartmentsAPI()
+      .then((res) => setDeptArray(res?.data?.data))
+      .catch((err) => console.log("Semesters Page api response error", err));
+  }, []);
 
   return (
     <>
@@ -39,28 +71,38 @@ const Semesters = () => {
           <tbody>
             <tr>
               <td>
-                <input
-                  type="text"
+                <select
+                  type="select"
                   className="form-control"
                   name="semester"
                   id="semester"
-                  placeholder="Enter Semester"
                   value={semester}
                   required
                   onChange={(e) => setSemester(e.target.value)}
-                />
+                >
+                  {semesterDataArray.map((value, index) => (
+                    <option value={value} key={index}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
               </td>
               <td>
-                <input
-                  type="text"
+                <select
+                  type="select"
                   className="form-control"
-                  name="department"
-                  id="department"
-                  placeholder="Enter Department"
-                  value={department}
+                  name="dept"
+                  id="dept"
+                  value={dept}
                   required
-                  onChange={(e) => setDepartment(e.target.value)}
-                />
+                  onChange={(e) => setDept(e.target.value)}
+                >
+                  {deptArray.map((value, index) => (
+                    <option value={value.dept} key={index}>
+                      {value.dept}
+                    </option>
+                  ))}
+                </select>
               </td>
               <td>
                 <button
@@ -80,15 +122,25 @@ const Semesters = () => {
 
       {/* Display Semesters */}
       <div className="container">
-        <h3 className="text-left my-2">Semesters List</h3>
-        {/* {onSubmit.map((semester, department) => {
-          return (
-            <div className="conatiner">
-              <h6>{semester}</h6>
-              <h6>{department}</h6>
-            </div>
-          );
-        })} */}
+        <h4>Semesters List</h4>
+        <table class="table">
+          <thead className="table-dark">
+            <tr>
+              <th scope="col">Semester</th>
+              <th scope="col">Department</th>
+            </tr>
+          </thead>
+          <tbody>
+            {semesterArray
+              ? semesterArray.map((value, index) => (
+                  <tr>
+                    <td>{value.semester}</td>
+                    <td>{value.dept.toUpperCase()}</td>
+                  </tr>
+                ))
+              : null}
+          </tbody>
+        </table>
       </div>
     </>
   );

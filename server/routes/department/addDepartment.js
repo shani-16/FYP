@@ -15,7 +15,7 @@ const METHOD_NAME_FOR_LOG = "Add Dept API ERROR";
 router.post(
   "/",
   verifyAuthToken,
-  [body("department", "enter a valid deparment")],
+  [body("dept", "enter a valid deparment")],
   async (req, res) => {
     let userID = req.user.id;
 
@@ -37,6 +37,7 @@ router.post(
       } else {
         let departmentObj = await Department.findOne({
           user: mongoose.Types.ObjectId(userID),
+          dept,
         });
         console.log("mongo department obj :  ", departmentObj);
         if (departmentObj?.dept == dept) {
