@@ -22,7 +22,7 @@ router.post(
     console.log("userID ", userID);
     // console.log("deptID ", deptID);
 
-    const { semester } = req.body;
+    const { semester, dept } = req.body;
     let userRegistered = await User.findOne({
       _id: mongoose.Types.ObjectId(userID),
     });
@@ -40,10 +40,10 @@ router.post(
           `Given userID = ${userID} is not registered `
         );
       } else {
-        let semesterObj = await Semester.findOne({
+        let semesterObj = await Semester.find({
           user: mongoose.Types.ObjectId(userID),
         });
-        if (semesterObj?.semester == semester) {
+        if (semesterObj?.semester == semester && semesterObj?.dept == dept) {
           failedResponse(
             res,
             HTTP_STATUS.BAD_REQUEST,
@@ -56,6 +56,7 @@ router.post(
           }
           const newSemester = new Semester({
             semester,
+            dept,
             user: userID,
           });
           const savedSemester = await newSemester.save();
