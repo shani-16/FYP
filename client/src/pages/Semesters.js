@@ -6,16 +6,16 @@ import {
 } from "../services/adminApi";
 const Semesters = () => {
   //Declaration of Semester & Department
-  const [semester, setSemester] = useState("");
+  const semesterDataArray = [1, 2, 3, 4, 5, 6, 7, 8];
+  const [semester, setSemester] = useState(semesterDataArray[0]);
   const [dept, setDept] = useState("");
   const [semesterArray, setSemesterArray] = useState([]);
   const [deptArray, setDeptArray] = useState([]);
 
-  const semesterDataArray = [1, 2, 3, 4, 5, 6, 7, 8];
-
   //Submit Event
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
     if (semester == "" || dept == "") {
       console.log("Kindly Fill fields");
     } else {
@@ -25,7 +25,6 @@ const Semesters = () => {
       };
       console.log("Semester modal", modal);
       const response = await addNewSemesterAPI(modal);
-      console.log("response ", response);
       const { data } = response;
 
       if (data?.success) {
@@ -35,22 +34,21 @@ const Semesters = () => {
       }
       const getResponse = await getUserSemesterAPI();
       setSemesterArray(getResponse?.data?.data);
+
       setSemester("");
-      const getPrevResponse = await getUserDepartmentsAPI();
-      setDeptArray(getPrevResponse?.data?.data);
       setDept("");
     }
   };
 
   useEffect(() => {
     getUserDepartmentsAPI()
-      .then((res) => setDeptArray(res?.data?.data))
-      .catch((err) => console.log("Semesters Page api response error", err));
-    getUserDepartmentsAPI()
-      .then((res) => setDeptArray(res?.data?.data))
+      .then((res) => {
+        const { data } = res;
+        setDept(data?.data[0].dept);
+        setDeptArray(data?.data);
+      })
       .catch((err) => console.log("Semesters Page api response error", err));
   }, []);
-
   return (
     <>
       {/* Create New Semesters */}
@@ -65,6 +63,7 @@ const Semesters = () => {
             <tr>
               <th scope="col">Semester</th>
               <th scope="col">Department</th>
+              <th scope="col">CT</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -95,9 +94,12 @@ const Semesters = () => {
                   id="dept"
                   value={dept}
                   required
-                  onChange={(e) => setDept(e.target.value)}
+                  onChange={(e) => {
+                    console.log("e.target.value ", e.target.value);
+                    setDept(e.target.value);
+                  }}
                 >
-                  {deptArray.map((value, index) => (
+                  {deptArray?.map((value, index) => (
                     <option value={value.dept} key={index}>
                       {value.dept}
                     </option>
@@ -109,7 +111,7 @@ const Semesters = () => {
                   type="submit"
                   value="Submit"
                   className="btn btn-primary mb-4"
-                  onClick={() => onSubmit()}
+                  onClick={onSubmit}
                 >
                   Save
                 </button>
