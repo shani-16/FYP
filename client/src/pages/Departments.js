@@ -22,7 +22,6 @@ const Departments = () => {
       const { data } = response;
       if (data?.success) {
         console.log("DEPARTMENTS Page succussful ==> ", data.data);
-        alert("Department Added Successfully");
       } else {
         console.log("DEPARTMENTS Page not succussful ==> ", data?.message);
         alert("Department Already Exists");

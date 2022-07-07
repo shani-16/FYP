@@ -2,12 +2,6 @@ import React, { useState } from "react";
 
 const QMapCLO = () => {
   //States
-  const [courseTitle, setCourseTitle] = useState("");
-  const [taskType, setTaskType] = useState("");
-  const [question, setQuestion] = useState("");
-  const [clo, setClo] = useState("");
-  const [plo, setPlo] = useState("");
-  const [weightage, setWeightage] = useState("");
   const ploArray = [
     "Academic Education",
     "Knowledge for Solving Computing Problems",
@@ -20,6 +14,13 @@ const QMapCLO = () => {
     "Ethics",
     "Life-long Learning",
   ];
+  const [plo, setPlo] = useState(ploArray[0]);
+  const [courseTitle, setCourseTitle] = useState("");
+  const [taskType, setTaskType] = useState("");
+  const [question, setQuestion] = useState("");
+  const [clo, setClo] = useState("");
+  const [weightage, setWeightage] = useState("");
+
   //Submit Event
   const onSubmit = () => {
     if (
