@@ -23,12 +23,17 @@ const Semesters = () => {
       };
       console.log("Semester modal", modal);
       const response = await addNewSemesterAPI(modal);
-      const { data } = response;
-
-      if (data?.success) {
-        console.log("SEMESTER Page succussful ==> ", data.data);
-      } else {
-        console.log("SEMESTER Page not succussful ==> ", data?.message);
+      if (response) {
+        if (response?.success == false) {
+          console.log("Response failed message ", response?.message);
+          return;
+        }
+        const { data } = response;
+        if (data?.success) {
+          console.log("SEMESTER Page succussful ==> ", data.data);
+        } else {
+          console.log("SEMESTER Page not succussful ==> ", data?.message);
+        }
       }
       const getResponse = await getUserSemesterAPI();
       setSemesterArray(getResponse?.data?.data);

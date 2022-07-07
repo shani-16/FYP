@@ -48,16 +48,14 @@ const Courses = () => {
       setCourseTitle("");
       setCourseCode("");
       setCreditHours("");
-      setSemester("");
-      setDept("");
     }
   };
   useEffect(() => {
     getUserSemesterAPI()
       .then((res) => {
         const { data } = res;
-
         console.log("User semester data ", data);
+        console.log("data?.data ", data?.data);
         setSemester(data?.data[0].semester);
         setSemesterArray(data?.data);
       })
@@ -132,7 +130,6 @@ const Courses = () => {
                   value={semester}
                   required
                   onChange={(e) => {
-                    console.log("e.target.value ", e.target.value);
                     setSemester(e.target.value);
                   }}
                 >
@@ -158,7 +155,7 @@ const Courses = () => {
                 >
                   {semesterArray?.map((value, index) => (
                     <option value={value.dept} key={index}>
-                      {value.dept.toUpperCase()}
+                      {value.dept}
                     </option>
                   ))}
                 </select>
