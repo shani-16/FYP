@@ -2,12 +2,13 @@ import { create, get } from "./http.service";
 const CREATE_USER_URL = `/api/auth/createuser`;
 const LOGIN_USER_URL = `/api/auth/login`;
 const ADD_NEW_COURSE = `/api/course/add`;
+const GET_USER_COURSE = `/api/course/get`;
 const ADD_NEW_DEPRTMENT = `/api/department/add`;
 const GET_USER_DEPRTMENT = `/api/department/getall`;
 const ADD_NEW_SEMESTER = `/api/semester/add`;
 const GET_USER_SEMESTER = `/api/semester/get`;
-
-const GET_USER_COURSE = `/api/course/get`;
+const ADD_NEW_TASK = `/api/semester/add`;
+const GET_USER_TASK = `/api/semester/get`;
 
 export const createUserAPI = async (body) => {
   return create(CREATE_USER_URL, body);
@@ -32,4 +33,10 @@ export const addNewCourseAPI = async (body) => {
 };
 export const getUserCoursesAPI = async () => {
   return get(GET_USER_COURSE);
+};
+export const addNewTaskAPI = async (body) => {
+  return create(ADD_NEW_TASK, body);
+};
+export const getUserTaskAPI = async () => {
+  return get(GET_USER_TASK);
 };

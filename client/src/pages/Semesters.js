@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   addNewSemesterAPI,
-  getUserDepartmentsAPI,
   getUserSemesterAPI,
+  getUserDepartmentsAPI,
 } from "../services/adminApi";
 const Semesters = () => {
   //Declaration of Semester & Department
@@ -63,7 +63,6 @@ const Semesters = () => {
             <tr>
               <th scope="col">Semester</th>
               <th scope="col">Department</th>
-              <th scope="col">CT</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -101,7 +100,7 @@ const Semesters = () => {
                 >
                   {deptArray?.map((value, index) => (
                     <option value={value.dept} key={index}>
-                      {value.dept}
+                      {value.dept.toUpperCase()}
                     </option>
                   ))}
                 </select>

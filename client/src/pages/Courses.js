@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { addNewCourseAPI, getUserCoursesAPI } from "../services/adminApi";
+import {
+  addNewCourseAPI,
+  getUserCoursesAPI,
+  getUserSemesterAPI,
+} from "../services/adminApi";
 
 const Courses = () => {
   //States of All Inputs
@@ -7,13 +11,16 @@ const Courses = () => {
   const [courseCode, setCourseCode] = useState("");
   const [creditHours, setCreditHours] = useState("");
   const [semester, setSemester] = useState("");
-  const [department, setDepartment] = useState("");
+  const [semesterArray, setSemesterArray] = useState([]);
+  const [dept, setDept] = useState("");
   const [courseArray, setCourseArray] = useState([]);
+
   //Submit Event
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
     if (
       semester == "" ||
-      department == "" ||
+      dept == "" ||
       courseTitle == "" ||
       courseCode == "" ||
       creditHours == ""
@@ -25,8 +32,9 @@ const Courses = () => {
         courseCode,
         creditHours,
         semester,
-        department,
+        dept,
       };
+      console.log("Course Modal ", modal);
       const response = await addNewCourseAPI(modal);
       console.log("response ", response);
       const { data } = response;
@@ -41,14 +49,23 @@ const Courses = () => {
       setCourseCode("");
       setCreditHours("");
       setSemester("");
-      setDepartment("");
+      setDept("");
     }
   };
   useEffect(() => {
-    getUserCoursesAPI()
-      .then((res) => setCourseArray(res?.data?.data))
-      .catch((err) => console.log("COURSES Page api response error", err));
+    getUserSemesterAPI()
+      .then((res) => {
+        const { data } = res;
+
+        console.log("User semester data ", data);
+        setSemester(data?.data[0].semester);
+        setSemesterArray(data?.data);
+      })
+      .catch((err) => console.log("Courses Page api response error", err));
   }, []);
+  console.log("Semester Array ", semesterArray);
+  console.log("Semester", semester);
+
   return (
     <>
       {/* Create New Course */}
@@ -107,28 +124,44 @@ const Courses = () => {
                 />
               </td>
               <td>
-                <input
-                  type="text"
+                <select
+                  type="select"
                   className="form-control"
                   name="semester"
                   id="semester"
-                  placeholder="Enter Semester"
                   value={semester}
                   required
-                  onChange={(e) => setSemester(e.target.value)}
-                />
+                  onChange={(e) => {
+                    console.log("e.target.value ", e.target.value);
+                    setSemester(e.target.value);
+                  }}
+                >
+                  {semesterArray?.map((value, index) => (
+                    <option value={value.semester} key={index}>
+                      {value.semester}
+                    </option>
+                  ))}
+                </select>
               </td>
               <td>
-                <input
-                  type="text"
+                <select
+                  type="select"
                   className="form-control"
-                  name="department"
-                  id="department"
-                  placeholder="Enter Department"
-                  value={department}
+                  name="dept"
+                  id="dept"
+                  value={dept}
                   required
-                  onChange={(e) => setDepartment(e.target.value)}
-                />
+                  onChange={(e) => {
+                    console.log("e.target.value ", e.target.value);
+                    setDept(e.target.value);
+                  }}
+                >
+                  {semesterArray?.map((value, index) => (
+                    <option value={value.dept} key={index}>
+                      {value.dept.toUpperCase()}
+                    </option>
+                  ))}
+                </select>
               </td>
             </tr>
           </tbody>
@@ -138,7 +171,7 @@ const Courses = () => {
             type="submit"
             value="Submit"
             className="btn btn-primary mb-4"
-            onClick={() => onSubmit()}
+            onClick={onSubmit}
           >
             Create
           </button>
@@ -149,7 +182,7 @@ const Courses = () => {
       <div className="container my-2">
         <h3 className="text-left my-2">Courses List</h3>
         <>
-          <table class="table">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">Course Title</th>
@@ -163,11 +196,11 @@ const Courses = () => {
               {courseArray
                 ? courseArray.map((value, index) => (
                     <tr>
-                      <td>{value.courseTitle}</td>
-                      <td>{value.courseCode}</td>
-                      <td>{value.creditHours}</td>
-                      <td>{value.semester}</td>
-                      <td>{value.department}</td>
+                      <td>{value.courseTitle.toUpperCase()}</td>
+                      <td>{value.courseCode.toUpperCase()}</td>
+                      <td>{value.creditHours.toUpperCase()}</td>
+                      <td>{value.semester.toUpperCase()}</td>
+                      <td>{value.dept.toUpperCase()}</td>
                     </tr>
                   ))
                 : null}
