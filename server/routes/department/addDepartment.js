@@ -21,6 +21,7 @@ router.post(
 
     console.log("header user id : ", userID);
     const { dept } = req.body;
+    dept = dept.toUpperCase();
     let userRegistered = await User.findOne({
       _id: mongoose.Types.ObjectId(userID),
     });

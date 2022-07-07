@@ -81,7 +81,7 @@ const Departments = () => {
             {departmentsArray
               ? departmentsArray.map((value, index) => (
                   <tr>
-                    <td>{value.dept.toUpperCase()}</td>
+                    <td>{value.dept}</td>
                     <button
                       type="submit"
                       value="Submit"
