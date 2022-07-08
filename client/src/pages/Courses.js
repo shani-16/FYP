@@ -7,10 +7,11 @@ import {
 
 const Courses = () => {
   //States of All Inputs
+  const semesterDataArray = [1, 2, 3, 4, 5, 6, 7, 8];
+  const [semester, setSemester] = useState(semesterDataArray[0]);
   const [courseTitle, setCourseTitle] = useState("");
   const [courseCode, setCourseCode] = useState("");
   const [creditHours, setCreditHours] = useState("");
-  const [semester, setSemester] = useState("");
   const [semesterArray, setSemesterArray] = useState([]);
   const [dept, setDept] = useState("");
   const [courseArray, setCourseArray] = useState([]);
@@ -43,27 +44,22 @@ const Courses = () => {
       } else {
         console.log("COURSES Page not succussful ==> ", data?.message);
       }
-      const getResponse = await getUserCoursesAPI();
-      setCourseArray(getResponse?.data?.data);
+      const coursesResponse = await getUserCoursesAPI();
+      setCourseArray(coursesResponse?.data?.data);
       setCourseTitle("");
       setCourseCode("");
       setCreditHours("");
     }
   };
   useEffect(() => {
-    getUserSemesterAPI()
+    setSemesterArray(semesterDataArray);
+    getUserCoursesAPI()
       .then((res) => {
         const { data } = res;
-        console.log("User semester data ", data);
-        console.log("data?.data ", data?.data);
-        setSemester(data?.data[0].semester);
-        setSemesterArray(data?.data);
+        setCourseArray(data?.data);
       })
       .catch((err) => console.log("Courses Page api response error", err));
   }, []);
-  console.log("Semester Array ", semesterArray);
-  console.log("Semester", semester);
-
   return (
     <>
       {/* Create New Course */}
@@ -77,7 +73,6 @@ const Courses = () => {
             <tr>
               <th scope="col">Course Title</th>
               <th scope="col">Course Code</th>
-
               <th scope="col">Credit Hour(s)</th>
               <th scope="col">Semester</th>
               <th scope="col">Department</th>
@@ -134,31 +129,23 @@ const Courses = () => {
                   }}
                 >
                   {semesterArray?.map((value, index) => (
-                    <option value={value.semester} key={index}>
-                      {value.semester}
+                    <option value={value} key={index}>
+                      {value}
                     </option>
                   ))}
                 </select>
               </td>
               <td>
-                <select
-                  type="select"
+                <input
+                  type="text"
                   className="form-control"
                   name="dept"
                   id="dept"
+                  placeholder="Enter Dept"
                   value={dept}
                   required
-                  onChange={(e) => {
-                    console.log("e.target.value ", e.target.value);
-                    setDept(e.target.value);
-                  }}
-                >
-                  {semesterArray?.map((value, index) => (
-                    <option value={value.dept} key={index}>
-                      {value.dept}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(e) => setDept(e.target.value)}
+                />
               </td>
             </tr>
           </tbody>
@@ -191,13 +178,13 @@ const Courses = () => {
             </thead>
             <tbody>
               {courseArray
-                ? courseArray.map((value, index) => (
+                ? courseArray.map((value) => (
                     <tr>
-                      <td>{value.courseTitle.toUpperCase()}</td>
-                      <td>{value.courseCode.toUpperCase()}</td>
-                      <td>{value.creditHours.toUpperCase()}</td>
-                      <td>{value.semester.toUpperCase()}</td>
-                      <td>{value.dept.toUpperCase()}</td>
+                      <td>{value.courseTitle}</td>
+                      <td>{value.courseCode}</td>
+                      <td>{value.creditHours}</td>
+                      <td>{value.semester}</td>
+                      <td>{value.dept}</td>
                     </tr>
                   ))
                 : null}
