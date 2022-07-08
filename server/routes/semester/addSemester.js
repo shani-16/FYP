@@ -40,8 +40,10 @@ router.post(
           `Given userID = ${userID} is not registered `
         );
       } else {
-        let semesterObj = await Semester.find({
+        let semesterObj = await Semester.findOne({
           user: mongoose.Types.ObjectId(userID),
+          semester,
+          dept,
         });
         if (semesterObj?.semester == semester && semesterObj?.dept == dept) {
           failedResponse(

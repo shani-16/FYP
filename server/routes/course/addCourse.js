@@ -20,20 +20,17 @@ router.post(
     body("courseTitle", "enter valid credit title"),
     body("creditHours", "enter valid credit hours"),
     body("semester", "enter valid semester"),
-    body("department", "enter valid credit hours"),
+    body("dept", "enter valid credit hours"),
   ],
   async (req, res) => {
     let userID = req.user.id;
-
-    console.log("header user id : ", userID);
-    const { courseCode, courseTitle, creditHours, semester, department } =
-      req.body;
+    let { courseCode, courseTitle, creditHours, semester, dept } = req.body;
+    dept = dept.toUpperCase();
     let userRegistered = await User.findOne({
       _id: mongoose.Types.ObjectId(userID),
     });
 
-    console.log("mongo user :  ", userRegistered);
-    console.log("course request body:  ", req.body);
+    // console.log("mongo user :  ", userRegistered);
 
     try {
       if (!userRegistered) {
@@ -45,20 +42,19 @@ router.post(
       } else {
         let courseObj = await Course.findOne({
           user: mongoose.Types.ObjectId(userID),
-          courseCode,
-          courseTitle,
-          department,
+          $or: [{ courseCode }, { courseTitle }],
+          dept, //IT
         });
         console.log("mongo course obj :  ", courseObj);
         if (
-          courseObj?.courseCode == courseCode &&
-          courseObj?.department == department &&
-          courseObj?.courseTitle == courseTitle
+          (courseObj?.courseCode == courseCode ||
+            courseObj?.courseTitle == courseTitle) &&
+          courseObj?.dept == dept
         ) {
           failedResponse(
             res,
             HTTP_STATUS.BAD_REQUEST,
-            ` ${courseCode} course is already registered By ${userRegistered?.email}`
+            `Already registered By ${userRegistered?.email}`
           );
         } else {
           const errors = validationResult(req);
@@ -71,7 +67,7 @@ router.post(
             courseTitle,
             creditHours,
             semester,
-            department,
+            dept,
             user: req.user.id,
           });
           const savedCourse = await newCourse.save();

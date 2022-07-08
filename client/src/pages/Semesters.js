@@ -12,8 +12,6 @@ const Semesters = () => {
   const [semesterArray, setSemesterArray] = useState([]);
   const [deptArray, setDeptArray] = useState([]);
 
-  //Submit Event
-
   const onSubmit = async (e) => {
     e.preventDefault();
     if (semester == "" || dept == "") {
@@ -25,22 +23,33 @@ const Semesters = () => {
       };
       console.log("Semester modal", modal);
       const response = await addNewSemesterAPI(modal);
-      const { data } = response;
-
-      if (data?.success) {
-        console.log("SEMESTER Page succussful ==> ", data.data);
-      } else {
-        console.log("SEMESTER Page not succussful ==> ", data?.message);
+      if (response) {
+        if (response?.success == false) {
+          console.log("Response failed message ", response?.message);
+          return;
+        }
+        const { data } = response;
+        if (data?.success) {
+          console.log("SEMESTER Page succussful ==> ", data.data);
+        } else {
+          console.log("SEMESTER Page not succussful ==> ", data?.message);
+        }
       }
       const getResponse = await getUserSemesterAPI();
       setSemesterArray(getResponse?.data?.data);
-
-      setSemester("");
-      setDept("");
     }
   };
 
   useEffect(() => {
+    getUserSemesterAPI()
+      .then((res) => {
+        const { data } = res;
+        setSemester(semesterDataArray[0]);
+        setSemesterArray(data?.data);
+      })
+      .catch((err) =>
+        console.log("Semesters response Page api response error", err)
+      );
     getUserDepartmentsAPI()
       .then((res) => {
         const { data } = res;
@@ -136,7 +145,7 @@ const Semesters = () => {
               ? semesterArray.map((value, index) => (
                   <tr>
                     <td>{value.semester}</td>
-                    <td>{value.dept.toUpperCase()}</td>
+                    <td>{value.dept}</td>
                   </tr>
                 ))
               : null}
