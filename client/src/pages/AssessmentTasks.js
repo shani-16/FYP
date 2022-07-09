@@ -11,7 +11,10 @@ const AssessmentTasks = () => {
   const [taskType, setTaskType] = useState("");
   const [taskTypeArray, setTaskTypeArray] = useState(taskTypeDataArray[0]);
   const [semester, setSemester] = useState("");
+  const [dept, setDept] = useState("");
   const [semesterArray, setSemesterArray] = useState([]);
+  const [courseTitle, setCourseTitle] = useState();
+  const [courseTitleArray, setCourseTitleArray] = useState([]);
 
   //Submit Event
   const onSubmit = async (e) => {
@@ -38,15 +41,27 @@ const AssessmentTasks = () => {
 
   useEffect(() => {
     getUserCoursesAPI()
-      .then((res) => {
-        const { data } = res;
-        setTaskType(data?.data[0].semester);
-        setTaskTypeArray(data?.data);
+      .then((response) => {
+        console.log("res", response);
+        if (response) {
+          if (response?.success == false) {
+            console.log("Response failed message ", response?.message);
+            return;
+          }
+          const { data } = response;
+          if (data?.success) {
+            setCourseTitle(data?.data[0].courseTitle);
+            setDept(data?.data[0].dept);
+            setSemester(data?.data[0].semester);
+            setCourseTitleArray(data?.data);
+          }
+        }
       })
       .catch((err) =>
         console.log("Assessment Type Page api response error", err)
       );
   }, []);
+
   return (
     <>
       {/* New Assessment Task */}
@@ -59,7 +74,9 @@ const AssessmentTasks = () => {
           <thead className="table-dark">
             <tr>
               <th scope="col">Assessment Task Title</th>
-              <th scope="col">Class Name</th>
+              <th scope="col">Course Title</th>
+              <th scope="col">Semester</th>
+              <th scope="col">Dept</th>
             </tr>
           </thead>
           <tbody>
@@ -85,19 +102,23 @@ const AssessmentTasks = () => {
                 <select
                   type="select"
                   className="form-control"
-                  name="semester"
-                  id="semester"
-                  value={semester}
+                  name="courseTitle"
+                  id="courseTitle"
+                  value={courseTitle}
                   required
-                  onChange={(e) => setTaskType(e.target.value)}
+                  onChange={(e) => setCourseTitle(e.target.value)}
                 >
-                  {semesterArray?.map((value, index) => (
-                    <option value={value.semester} key={index}>
-                      {value.semester}
+                  {courseTitleArray?.map((value, index) => (
+                    <option value={value.courseTitle} key={index}>
+                      {value.courseTitle}
                     </option>
                   ))}
                 </select>
               </td>
+              <td>
+                <h6>5</h6>
+              </td>
+              <h6>Bio</h6>
             </tr>
           </tbody>
         </table>

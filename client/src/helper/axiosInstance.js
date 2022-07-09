@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { parseErrors } from "../utils/utilFunctions";
+import { parseErrors, parseSuccess } from "../utils/utilFunctions";
 import WebStorage from "../utils/webStorage";
 let authToken = WebStorage.getAuthToken();
 
@@ -19,14 +19,16 @@ axiosInstance.interceptors.request.use(function (req) {
 
 axiosInstance.interceptors.response.use(
   async (res) => {
-    console.log("interceptors RES ", res);
+    console.log("interceptors RES successful ", res);
     const { data } = res;
     if (data?.token) {
       WebStorage.setAuthToken(data.token);
     }
-    return res;
+    return parseSuccess(res);
+    // return res;
   },
   (error) => {
+    console.log("interceptors RES error ", error);
     return parseErrors(error);
   }
 );

@@ -1,7 +1,3 @@
-import WebStorage from "./webStorage";
-
-export const isTokenSaved = () => WebStorage.getAuthToken();
-
 export const parseErrors = (errObj) => {
   const {
     data: { message, success },
@@ -17,8 +13,8 @@ export const parseErrors = (errObj) => {
     }
     if (status == 500) {
       return {
-        success,
-        message,
+        success: false,
+        message: errObj.response.data,
         statusCode: status,
       };
     } else {
@@ -33,6 +29,28 @@ export const parseErrors = (errObj) => {
     return {
       success,
       message: `Network error CREATE_API  ${errObj}`,
+      statusCode: status,
+    };
+  }
+};
+
+export const parseSuccess = (res) => {
+  const {
+    data: { message, success, data },
+    status,
+  } = res;
+  try {
+    if (status == 200) {
+      return {
+        success,
+        message,
+        data,
+      };
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: `Network error  ${error}`,
       statusCode: status,
     };
   }
