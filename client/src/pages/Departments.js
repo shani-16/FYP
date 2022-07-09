@@ -19,15 +19,14 @@ const Departments = () => {
       };
       const response = await addNewDepartmentAPI(modal);
       const getResponse = await getUserDepartmentsAPI();
-      setDepartmentsArray(getResponse?.data?.data);
+      setDepartmentsArray(getResponse?.data);
       setAddDepartments("");
     }
   };
   const handleGetUserDeptApiRes = async () => {
     const response = await getUserDepartmentsAPI();
-    console.log("resres - ", response);
     if (response?.success) {
-      console.log("Response data -- ", response?.data);
+      console.log("Response data -- ", setDepartmentsArray(response?.data));
     } else console.log("Response Error - ", response?.message);
   };
   useEffect(() => {
