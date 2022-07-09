@@ -15,7 +15,6 @@ const Courses = () => {
   const [semesterArray, setSemesterArray] = useState([]);
   const [dept, setDept] = useState("");
   const [courseArray, setCourseArray] = useState([]);
-
   //Submit Event
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -39,16 +38,22 @@ const Courses = () => {
       const response = await addNewCourseAPI(modal);
       console.log("response ", response);
       const { data } = response;
-      if (data?.success) {
-        console.log("COURSES Page succussful ==> ", data.data);
-      } else {
-        console.log("COURSES Page not succussful ==> ", data?.message);
+      if (response) {
+        if (response?.success == false) {
+          console.log("Response failed message ", response?.message);
+          return;
+        }
+        if (data?.success) {
+          console.log("COURSES Page succussful ==> ", data.data);
+        } else {
+          console.log("COURSES Page not succussful ==> ", data?.message);
+        }
+        const coursesResponse = await getUserCoursesAPI();
+        setCourseArray(coursesResponse?.data?.data);
+        setCourseTitle("");
+        setCourseCode("");
+        setCreditHours("");
       }
-      const coursesResponse = await getUserCoursesAPI();
-      setCourseArray(coursesResponse?.data?.data);
-      setCourseTitle("");
-      setCourseCode("");
-      setCreditHours("");
     }
   };
   useEffect(() => {

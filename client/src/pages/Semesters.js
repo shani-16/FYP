@@ -14,7 +14,12 @@ const Semesters = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (semester == "" || dept == "") {
+    if (
+      semester == "" ||
+      semester == undefined ||
+      dept == "" ||
+      dept == undefined
+    ) {
       console.log("Kindly Fill fields");
     } else {
       var modal = {
@@ -23,40 +28,40 @@ const Semesters = () => {
       };
       console.log("Semester modal", modal);
       const response = await addNewSemesterAPI(modal);
+      console.log("Semester response", response);
       if (response) {
         if (response?.success == false) {
           console.log("Response failed message ", response?.message);
           return;
         }
         const { data } = response;
-        if (data?.success) {
-          console.log("SEMESTER Page succussful ==> ", data.data);
-        } else {
-          console.log("SEMESTER Page not succussful ==> ", data?.message);
-        }
+        console.log("SEMESTER Page succussful ==> ", data);
       }
       const getResponse = await getUserSemesterAPI();
+      console.log("getResponse- ", getResponse);
       setSemesterArray(getResponse?.data?.data);
     }
   };
-
+  const handleGetUserSemesterApiRes = async () => {
+    const response = await getUserSemesterAPI();
+    console.log("response - ", response);
+    if (response?.success) {
+      console.log("Response data -- ", response?.data);
+      setSemester(semesterDataArray[0]);
+      setSemesterArray(response?.data);
+    } else console.log("Response Error - ", response?.message);
+  };
+  const handleGetUserDeptApiRes = async () => {
+    const response = await getUserDepartmentsAPI();
+    console.log("resres - ", response);
+    if (response?.success) {
+      console.log("Response data -- ", response?.data);
+      setDeptArray(response?.data);
+    } else console.log("Response Error - ", response?.message);
+  };
   useEffect(() => {
-    getUserSemesterAPI()
-      .then((res) => {
-        const { data } = res;
-        setSemester(semesterDataArray[0]);
-        setSemesterArray(data?.data);
-      })
-      .catch((err) =>
-        console.log("Semesters response Page api response error", err)
-      );
-    getUserDepartmentsAPI()
-      .then((res) => {
-        const { data } = res;
-        setDept(data?.data[0].dept);
-        setDeptArray(data?.data);
-      })
-      .catch((err) => console.log("Semesters Page api response error", err));
+    handleGetUserSemesterApiRes();
+    handleGetUserDeptApiRes();
   }, []);
   return (
     <>
@@ -95,24 +100,16 @@ const Semesters = () => {
                 </select>
               </td>
               <td>
-                <select
-                  type="select"
+                <input
+                  type="text"
                   className="form-control"
                   name="dept"
                   id="dept"
+                  placeholder="Enter Department"
                   value={dept}
                   required
-                  onChange={(e) => {
-                    console.log("e.target.value ", e.target.value);
-                    setDept(e.target.value);
-                  }}
-                >
-                  {deptArray?.map((value, index) => (
-                    <option value={value.dept} key={index}>
-                      {value.dept.toUpperCase()}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(e) => setDept(e.target.value)}
+                />
               </td>
               <td>
                 <button

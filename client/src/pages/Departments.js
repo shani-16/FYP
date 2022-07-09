@@ -18,23 +18,20 @@ const Departments = () => {
         dept,
       };
       const response = await addNewDepartmentAPI(modal);
-      console.log("response ", response);
-      const { data } = response;
-      if (data?.success) {
-        console.log("DEPARTMENTS Page succussful ==> ", data.data);
-      } else {
-        console.log("DEPARTMENTS Page not succussful ==> ", data?.message);
-        alert("Department Already Exists");
-      }
       const getResponse = await getUserDepartmentsAPI();
       setDepartmentsArray(getResponse?.data?.data);
       setAddDepartments("");
     }
   };
+  const handleGetUserDeptApiRes = async () => {
+    const response = await getUserDepartmentsAPI();
+    console.log("resres - ", response);
+    if (response?.success) {
+      console.log("Response data -- ", response?.data);
+    } else console.log("Response Error - ", response?.message);
+  };
   useEffect(() => {
-    getUserDepartmentsAPI()
-      .then((res) => setDepartmentsArray(res?.data?.data))
-      .catch((err) => console.log("DEPARTMENTS Page api response error", err));
+    handleGetUserDeptApiRes();
   }, []);
   return (
     <>
